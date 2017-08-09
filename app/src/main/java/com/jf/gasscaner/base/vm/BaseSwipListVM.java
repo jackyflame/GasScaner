@@ -2,15 +2,14 @@ package com.jf.gasscaner.base.vm;
 
 import android.content.Context;
 import android.databinding.Bindable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.BaseAdapter;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.haozi.baselibrary.db.BasePresent;
+import com.jf.gasscaner.BR;
 import com.jf.gasscaner.base.adapter.BaseViewHolder;
-
-import java.util.List;
 
 /**
  * Created by Haozi on 2017/5/26.
