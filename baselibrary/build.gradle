@@ -4,11 +4,6 @@ apply plugin: 'com.android.library'
 
 android {
 
-    repositories {
-        jcenter()
-        maven { url "https://jitpack.io" }
-    }
-
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
@@ -46,7 +41,7 @@ dependencies {
     //apt 'com.jakewharton:butterknife-compiler:8.6.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'
+    compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.4' //在project build.gradle->allprojects->repositories添加 maven { url "https://jitpack.io" }
     compile rootProject.ext.dependencies.appcompatV7
     compile rootProject.ext.dependencies.design
     //内存泄露监测
