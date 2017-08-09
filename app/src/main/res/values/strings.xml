@@ -3,9 +3,9 @@
 
     <!-- Strings related to login -->
     <string name="title_activity_login">登录</string>
-    <string name="title_login">登录</string>
+    <string name="title_login">请登录</string>
     <string name="title_registe">注册</string>
     <string name="prompt_nickname">请输入用户名</string>
-    <string name="prompt_password">设置密码</string>
-    <string name="action_sign_in">确定</string>
+    <string name="prompt_password">请输入密码</string>
+    <string name="action_sign_in">登录</string>
 </resources>

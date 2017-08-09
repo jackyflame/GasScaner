@@ -1,5 +1,6 @@
 package com.jf.gasscaner.vm;
 
+import android.content.Intent;
 import android.databinding.Bindable;
 import android.view.View;
 
@@ -11,6 +12,7 @@ import com.jf.gasscaner.base.vm.BaseVM;
 import com.jf.gasscaner.db.UserPresent;
 import com.jf.gasscaner.net.entity.UserEntity;
 import com.jf.gasscaner.ui.LoginActivity;
+import com.jf.gasscaner.ui.MainActivity;
 
 /**
  * Created by Haozi on 2017/5/23.
@@ -42,15 +44,12 @@ public class LoginVM extends BaseVM {
     public void onConfirmClick(View view){
         String userName = loginActivity.getUserName();
         if(StringUtil.isEmpty(userName)){
-            loginActivity.showToast("请输入正确的昵称");
+            loginActivity.showToast("请输入账号");
             return;
         }
         String password = loginActivity.getPassword();
         if(StringUtil.isEmpty(password)){
             loginActivity.showToast("请输入密码");
-            return;
-        }else if(password.length() < 6){
-            loginActivity.showToast("密码长度必须大于6位");
             return;
         }
         UserPresent.getInstance().registerOrLogin(userName, password, new BaseReqCallback<UserEntity>() {
@@ -62,23 +61,15 @@ public class LoginVM extends BaseVM {
             public void onNetResp(UserEntity response) {
                 UserPresent.getInstance().saveUser(response);
                 loginActivity.hideProgressDialog();
-                if(isloginMark){
-                    loginActivity.showToast("登录成功");
-                }else{
-                    loginActivity.showToast("注册成功");
-                }
-                loginActivity.finish();
+                loginActivity.showToast("登录成功");
+                loginActivity.startActivity(new Intent(loginActivity, MainActivity.class));
             }
 
             @Override
             public void onReqError(HttpEvent httpEvent) {
                 super.onReqError(httpEvent);
                 loginActivity.hideProgressDialog();
-                if(isloginMark) {
-                    loginActivity.showToast("登录失败");
-                }else{
-                    loginActivity.showToast("注册成功");
-                }
+                loginActivity.showToast("登录失败");
             }
         });
     }
