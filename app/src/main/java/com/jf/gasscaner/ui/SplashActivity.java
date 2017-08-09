@@ -9,6 +9,7 @@ import com.haozi.baselibrary.event.HttpEvent;
 import com.haozi.baselibrary.log.LogUtil;
 import com.haozi.baselibrary.net.config.ErrorType;
 import com.haozi.baselibrary.net.retrofit.BaseReqCallback;
+import com.haozi.baselibrary.net.retrofit.ReqCallback;
 import com.haozi.baselibrary.utils.ViewUtils;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.BaseDBActivity;
@@ -38,7 +39,11 @@ public class SplashActivity extends BaseDBActivity<ActivitySplashBinding,SplashV
         bindLayout(R.layout.activity_splash,new SplashVM(this));
         //自动登录
         if(viewModel.isLogin()){
-            viewModel.requestLoginToken(new BaseReqCallback<UserEntity>() {
+            viewModel.requestLoginToken(new ReqCallback<UserEntity>() {
+                @Override
+                public void onReqStart() {
+                    startTime = System.currentTimeMillis();
+                }
                 @Override
                 public void onNetResp(UserEntity response) {
                     if (response != null) {

@@ -8,4 +8,8 @@
     <string name="prompt_nickname">请输入用户名</string>
     <string name="prompt_password">请输入密码</string>
     <string name="action_sign_in">登录</string>
+
+    <string name="tab_check_menue">实名验证</string>
+    <string name="tab_regiter_menue">加油登记</string>
+    <string name="tab_user_menue">用户</string>
 </resources>
