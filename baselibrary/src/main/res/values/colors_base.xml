@@ -29,6 +29,7 @@
     <color name="green">#29ca64</color>
     <color name="orange">#EEC900</color>
     <color name="blue_light">#5CACEE</color>
+    <color name="blue_dark">#519AD3</color>
 
     <color name="diver">#F9F9F9</color>
     <color name="diver_dark">#cecece</color>

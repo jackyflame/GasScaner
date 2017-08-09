@@ -1,6 +1,7 @@
 package com.jf.gasscaner.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
@@ -15,7 +16,7 @@ import com.haozi.baselibrary.utils.StringUtil;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.BaseDBActivity;
 
-public class MainActivity extends BaseDBActivity{
+public class MainActivity extends BaseDBActivity implements TabHost.OnTabChangeListener {
 
     private FragmentTabHost mTabHost;
 
@@ -51,10 +52,11 @@ public class MainActivity extends BaseDBActivity{
 
         //设置tabs之间的分隔线不显示
         mTabHost.getTabWidget().setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
-        ////设置切换监听
-        //mTabHost.setOnTabChangedListener(this);
+        //设置切换监听
+        mTabHost.setOnTabChangedListener(this);
         //初始化选择首页
         mTabHost.setCurrentTab(0);
+        setTitle(R.string.tab_check_menue);
     }
 
     /**
@@ -88,5 +90,12 @@ public class MainActivity extends BaseDBActivity{
             txv_tab_title.setText(title);
         }
         return spec.setIndicator(v);
+    }
+
+    @Override
+    public void onTabChanged(String tabId) {
+        if(StringUtil.isInteger(tabId)){
+            setTitle(Integer.valueOf(tabId));
+        }
     }
 }
