@@ -12,4 +12,7 @@
     <string name="tab_check_menue">实名验证</string>
     <string name="tab_regiter_menue">加油登记</string>
     <string name="tab_user_menue">用户</string>
+
+    <string name="action_sign_out">切换用户</string>
+    <string name="dailog_sign_out_tips">确定退出软件并切换用户？</string>
 </resources>

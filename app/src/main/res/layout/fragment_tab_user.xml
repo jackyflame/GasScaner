@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.jf.gasscaner.vm.UserFragmentVM" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingTop="@dimen/padding_m"
+            android:paddingLeft="@dimen/padding_m"
+            android:paddingRight="@dimen/padding_m"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/img_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_m"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_setting_selector"/>
+
+            <ImageView
+                android:id="@+id/img_contranct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_m"
+                android:layout_alignParentLeft="true"
+                android:visibility="gone"
+                android:src="@drawable/ic_contranct_selector"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/img_header"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_gas_header"/>
+
+        <LinearLayout
+            style="@style/user_row"
+            android:layout_marginTop="@dimen/padding_xl"
+            android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_l"
+                    android:textColor="@color/text_black_gray"
+                    android:text="操作员："/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_l"
+                    android:textColor="@color/text_black_gray"
+                    android:text="张三"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/diver_size"
+            android:layout_marginLeft="@dimen/padding_xxl"
+            android:layout_marginRight="@dimen/padding_xxl"
+            android:background="@color/diver_dark"/>
+
+        <LinearLayout
+            style="@style/user_row"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_l"
+                android:textColor="@color/text_black_gray"
+                android:text="站    点："/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_l"
+                android:textColor="@color/text_black_gray"
+                android:text="甘孜民贸加油站"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/diver_size"
+            android:layout_marginLeft="@dimen/padding_xxl"
+            android:layout_marginRight="@dimen/padding_xxl"
+            android:background="@color/diver_dark"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_xxxl"
+            android:layout_marginRight="@dimen/padding_xxxl"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/bg_corner_orange_5"
+            android:textSize="@dimen/text_l"
+            android:textColor="@color/white"
+            android:onClick="@{viewModel.onLogoutClick}"
+            android:text="@string/action_sign_out"/>
+
+    </LinearLayout>
+</layout>
