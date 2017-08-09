@@ -14,7 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.haozi.baselibrary.log.LogW;
-import com.haozi.cqhl.base.vm.BaseVM;
+import com.jf.gasscaner.base.vm.BaseVM;
 
 /**
  * Created by Haozi on 2017/5/21.

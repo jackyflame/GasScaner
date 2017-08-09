@@ -18,8 +18,8 @@ import com.haozi.baselibrary.interfaces.views.IActivityViewTools;
 import com.haozi.baselibrary.log.LogW;
 import com.haozi.baselibrary.utils.StringUtil;
 import com.haozi.baselibrary.view.ToastUtil;
-import com.haozi.cqhl.R;
-import com.haozi.cqhl.base.vm.BaseVM;
+import com.jf.gasscaner.R;
+import com.jf.gasscaner.base.vm.BaseVM;
 
 /**
  * Created by Haozi on 2017/5/21.

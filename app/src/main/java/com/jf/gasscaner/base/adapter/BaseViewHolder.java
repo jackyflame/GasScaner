@@ -23,7 +23,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     //TODO Warning : All viewModels in list cell layout must be named as "viewModel"!!!!!!!!!
     public void bindData(Object t) {
-        //binding.setVariable(BR.viewModel, t);
+        binding.setVariable(BR.viewModel, t);
         binding.executePendingBindings();
     }
 
