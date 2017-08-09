@@ -7,4 +7,13 @@
         <item name="android:paddingTop">@dimen/padding_l</item>
         <item name="android:paddingBottom">@dimen/padding_l</item>
     </style>
+
+    <style name="info_row">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:paddingLeft">@dimen/padding_xl</item>
+        <item name="android:paddingRight">@dimen/padding_xl</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">@dimen/padding_xl</item>
+    </style>
 </resources>

@@ -1,5 +1,8 @@
 package com.jf.gasscaner.vm;
 
+import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
+
 import com.jf.gasscaner.base.vm.BaseVM;
 
 /**
@@ -7,5 +10,10 @@ import com.jf.gasscaner.base.vm.BaseVM;
  */
 
 public class CheckFragmentVM extends BaseVM{
-    
+
+    private Activity activity;
+
+    public CheckFragmentVM(FragmentActivity activity) {
+        this.activity = activity;
+    }
 }

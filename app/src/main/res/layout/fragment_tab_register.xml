@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.jf.gasscaner.vm.RigisterFragmentVM" />
+    </data>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="215dp"
+                android:layout_margin="@dimen/padding_l"
+                android:background="@mipmap/bg_idcard">
+
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/info_row">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="加油卡号："/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/info_row">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车辆类型："/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="摩托车"
+                    android:paddingRight="@dimen/padding_xl"
+                    android:drawableRight="@mipmap/ic_expand_trangle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/info_row">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车牌号："/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_m"
+                    android:paddingRight="@dimen/padding_m"
+                    android:drawablePadding="@dimen/padding_s"
+                    android:onClick="@{viewModel.onCarBandClick}"
+                    android:text="@{viewModel.carProvinceMark}"
+                    android:drawableRight="@mipmap/ic_expand_trangle"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>
