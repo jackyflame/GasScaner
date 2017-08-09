@@ -5,8 +5,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.haozi.baselibrary.event.HttpEvent;
+import com.haozi.baselibrary.log.LogUtil;
+import com.haozi.baselibrary.net.config.ErrorType;
+import com.haozi.baselibrary.net.retrofit.BaseReqCallback;
+import com.haozi.baselibrary.utils.ViewUtils;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.BaseDBActivity;
+import com.jf.gasscaner.databinding.ActivitySplashBinding;
+import com.jf.gasscaner.net.entity.UserEntity;
+import com.jf.gasscaner.vm.SplashVM;
 
 /**
  * Created by Android Studio.
@@ -16,26 +24,90 @@ import com.jf.gasscaner.base.BaseDBActivity;
  * Time: 16:28
  */
 
-public class SplashActivity extends BaseDBActivity {
+public class SplashActivity extends BaseDBActivity<ActivitySplashBinding,SplashVM> {
 
     private Handler mHandler;
+    private Runnable mRunner;
+    private long startTime;
+    private static final long SPLASH_DURATION = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //绑定布局值
-        bindLayout(R.layout.activity_splash);
-
-        mHandler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        };
-
-        mHandler.sendEmptyMessageDelayed(1000,3000);
+        bindLayout(R.layout.activity_splash,new SplashVM(this));
+        //自动登录
+        if(viewModel.isLogin()){
+            viewModel.requestLoginToken(new BaseReqCallback<UserEntity>() {
+                @Override
+                public void onNetResp(UserEntity response) {
+                    if (response != null) {
+                        viewModel.saveUserData(response);
+                        resultCheck(viewModel.isLogin());
+                    }
+                }
+                @Override
+                public void onReqError(HttpEvent baseEvent) {
+                    if (baseEvent.getCode() == ErrorType.ERROR_NETWORK) {
+                        resultCheck(viewModel.isLogin());
+                    } else {
+                        viewModel.cleanUserData();
+                        resultCheck(false);
+                    }
+                }
+            });
+        }else{
+            startTime = System.currentTimeMillis();
+            resultCheck(false);
+        }
     }
 
+    private void resultCheck(final boolean isLogin) {
+        final long duration = System.currentTimeMillis() - startTime;
+        if (duration > SPLASH_DURATION) {
+            enterNextActivity(isLogin);
+        } else {
+            postRunnable(isLogin, SPLASH_DURATION - duration);
+        }
+    }
+
+    private void enterNextActivity(boolean isLogin) {
+        LogUtil.i("SplashActivity","enterNextActivity MainTmpActivity or LoginActivity----");
+        if(isLogin){
+            startActivity(new Intent(this,MainActivity.class));
+        }else{
+            startActivity(new Intent(this,LoginActivity.class));
+        }
+        finish();
+    }
+
+    private void postRunnable(final boolean isLogin, final long delay) {
+        if(mHandler == null){
+            mHandler = new Handler();
+        }
+        removeRunnable();
+        mRunner = new Runnable() {
+            @Override
+            public void run() {
+                enterNextActivity(isLogin);
+            }
+        };
+        mHandler.postDelayed(mRunner, delay);
+    }
+
+    private void removeRunnable() {
+        if (mRunner != null && mHandler != null) mHandler.removeCallbacks(mRunner);
+    }
+
+    @Override
+    public void onBackPressed() {
+        removeRunnable();
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        removeRunnable();
+        super.onDestroy();
+    }
 }

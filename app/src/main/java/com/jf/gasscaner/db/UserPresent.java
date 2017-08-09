@@ -51,6 +51,11 @@ public class UserPresent extends BasePresent {
         }
     }
 
+
+    public void cleanUserData() {
+        MyShareDbHelper.putString(SPKeys.SPKEY_USERINFO,"");
+    }
+
     public String getNowUserId(){
         UserEntity user = getUser();
         if(user == null){

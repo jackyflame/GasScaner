@@ -2,7 +2,7 @@ package com.haozi.baselibrary.log;
 
 public class LogUtil {
 
-    public static String sLogTag = "CQHL";
+    public static String sLogTag = "GASSCANER";
 
     public static boolean DEBUG = true;
 
