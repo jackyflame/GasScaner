@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:text="加油卡号："/>
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -49,8 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="摩托车"
-                    android:paddingRight="@dimen/padding_xl"
-                    android:drawableRight="@mipmap/ic_expand_trangle"/>
+                    android:paddingRight="@dimen/padding_xl"/>
 
             </LinearLayout>
 
@@ -68,12 +67,7 @@
                     android:paddingLeft="@dimen/padding_m"
                     android:paddingRight="@dimen/padding_m"
                     android:drawablePadding="@dimen/padding_s"
-                    android:text="川"
-                    android:drawableRight="@mipmap/ic_expand_trangle"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:text="川A123456"/>
 
             </LinearLayout>
 

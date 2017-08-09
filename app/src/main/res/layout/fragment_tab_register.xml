@@ -65,6 +65,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="60dp"
                     android:paddingLeft="@dimen/padding_m"
                     android:paddingRight="@dimen/padding_m"
                     android:drawablePadding="@dimen/padding_s"
