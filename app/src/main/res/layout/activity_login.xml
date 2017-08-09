@@ -1,0 +1,150 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.jf.gasscaner.vm.LoginVM"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:context=".ui.login.LoginActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            android:layout_marginBottom="@dimen/padding_xxxl"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:navigationIcon="@drawable/ic_arrow_back_selector"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:singleLine="true"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/text_l" />
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/ic_jinghui"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_l"
+                android:textSize="@dimen/text_l"
+                android:text="@string/title_login"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/padding_xxxl"
+            android:layout_marginRight="@dimen/padding_xxxl"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_s"
+                android:src="@mipmap/ic_login_nickname"/>
+
+            <EditText
+                android:id="@+id/txv_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edit_height"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/padding_xl"
+                android:paddingTop="@dimen/padding_l"
+                android:hint="@string/prompt_nickname"
+                android:textColorHint="@color/grey_light"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/text_l"
+                android:inputType="text"
+                android:maxLines="1"
+                android:background="@drawable/bg_login_edit_shap"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_xl"
+            android:layout_marginLeft="@dimen/padding_xxxl"
+            android:layout_marginRight="@dimen/padding_xxxl"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_s"
+                android:src="@mipmap/ic_login_psw"/>
+
+            <EditText
+                android:id="@+id/txv_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edit_height"
+                android:paddingTop="@dimen/padding_l"
+                android:layout_marginLeft="@dimen/padding_xl"
+                android:hint="@string/prompt_password"
+                android:textColorHint="@color/grey_light"
+                android:textSize="@dimen/text_l"
+                android:gravity="center_vertical"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:background="@drawable/bg_login_edit_shap"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/email_sign_in_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_xxxl"
+            android:layout_marginRight="@dimen/padding_xxxl"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/bg_corner_red_5"
+            android:text="@string/action_sign_in"
+            android:textSize="@dimen/text_l"
+            android:textColor="@color/white"
+            android:onClick="@{viewModel.onConfirmClick}"/>
+
+    </LinearLayout>
+
+</layout>
