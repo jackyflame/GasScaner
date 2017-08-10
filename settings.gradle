@@ -1,1 +1,1 @@
-include ':app', ':baselibrary', ':greendaolib'
+include ':app', ':baselibrary', ':greendaolib', ':scanerlib'
