@@ -28,6 +28,7 @@
     <color name="red">#fe0000</color>
     <color name="green">#29ca64</color>
     <color name="orange">#EEC900</color>
+    <color name="blue">#327ecb</color>
     <color name="blue_light">#5CACEE</color>
     <color name="blue_dark">#519AD3</color>
 
@@ -41,5 +42,6 @@
     <color name="text_black_gray">#333333</color>
     <color name="text_gray">#808080</color>
     <color name="text_gray_light">#aaaaaa</color>
+    <color name="text_blue">#327ecb</color>
 
 </resources>

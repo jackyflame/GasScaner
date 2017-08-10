@@ -15,16 +15,129 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!--身份证信息-->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="215dp"
-                android:layout_margin="@dimen/padding_l"
-                android:background="@mipmap/bg_idcard">
+                android:layout_height="wrap_content"
+                android:background="@mipmap/bg_idcard"
+                android:paddingBottom="@dimen/padding_xl"
+                android:paddingLeft="@dimen/padding_l"
+                android:paddingRight="@dimen/padding_l"
+                android:paddingTop="@dimen/padding_xl">
+
+                <!--姓名-->
+                <TextView
+                    android:id="@+id/txv_lable_name"
+                    style="@style/lab_title_blue"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/lable_name" />
+
+                <TextView
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_name"
+                    android:layout_toEndOf="@+id/txv_lable_name"
+                    android:text="张三" />
+
+                <!--头像-->
+                <ImageView
+                    android:id="@+id/img_header"
+                    android:layout_width="80dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/txv_lable_name"
+                    android:background="@drawable/bg_border_gray_5" />
+
+                <!--性别-->
+                <TextView
+                    android:id="@+id/txv_lable_sex"
+                    style="@style/lab_title_blue"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/txv_lable_name"
+                    android:layout_marginTop="@dimen/padding_l"
+                    android:text="@string/lable_sex" />
+
+                <TextView
+                    android:id="@+id/txv_sex"
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_sex"
+                    android:layout_toEndOf="@+id/txv_lable_sex"
+                    android:text="男" />
+
+                <!--民族-->
+                <TextView
+                    android:id="@+id/txv_lable_nation"
+                    style="@style/lab_title_blue"
+                    android:layout_alignBaseline="@+id/txv_lable_sex"
+                    android:layout_marginLeft="40dp"
+                    android:layout_toRightOf="@+id/txv_sex"
+                    android:text="@string/lable_nation" />
+
+                <TextView
+                    android:id="@+id/txv_nation"
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_nation"
+                    android:layout_toEndOf="@+id/txv_lable_nation"
+                    android:text="汉" />
+
+                <!--出生-->
+                <TextView
+                    android:id="@+id/txv_lable_born"
+                    style="@style/lab_title_blue"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/txv_lable_sex"
+                    android:layout_marginTop="@dimen/padding_l"
+                    android:text="@string/lable_born" />
+
+                <TextView
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_born"
+                    android:layout_toEndOf="@+id/txv_lable_born"
+                    android:text="1990年6月27日" />
+
+                <!--住址-->
+                <LinearLayout
+                    android:id="@+id/lin_address"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/txv_lable_born"
+                    android:layout_marginRight="@dimen/padding_m"
+                    android:layout_marginTop="@dimen/padding_l"
+                    android:layout_toStartOf="@+id/img_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txv_lable_address"
+                        style="@style/lab_title_blue"
+                        android:text="@string/lable_address" />
+
+                    <TextView
+                        android:id="@+id/txv_address"
+                        style="@style/lab_value_black"
+                        android:text="四川省成都市成华区玉林路99号1栋1单元901" />
+
+                </LinearLayout>
+
+
+                <!--身份证-->
+                <TextView
+                    android:id="@+id/txv_lable_idnum"
+                    style="@style/lab_title_blue"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/lin_address"
+                    android:layout_marginTop="11dp"
+                    android:text="@string/lable_idnum" />
+
+                <TextView
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_idnum"
+                    android:layout_toEndOf="@+id/txv_lable_idnum"
+                    android:text="510622199909098877" />
 
             </RelativeLayout>
 
             <LinearLayout
-                style="@style/info_row">
+                style="@style/info_row"
+                android:layout_marginTop="@dimen/padding_l">
 
                 <TextView
                     android:layout_width="wrap_content"

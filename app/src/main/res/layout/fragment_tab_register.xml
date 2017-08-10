@@ -15,70 +15,354 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!--身份证信息-->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="215dp"
-                android:layout_margin="@dimen/padding_l"
-                android:background="@mipmap/bg_idcard">
+                android:layout_height="wrap_content"
+                android:background="@mipmap/bg_idcard"
+                android:paddingBottom="@dimen/padding_xl"
+                android:paddingLeft="@dimen/padding_l"
+                android:paddingRight="@dimen/padding_l"
+                android:paddingTop="@dimen/padding_xl">
+
+                <!--姓名-->
+                <TextView
+                    android:id="@+id/txv_lable_name"
+                    style="@style/lab_title_blue"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/lable_name" />
+
+                <TextView
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_name"
+                    android:layout_toEndOf="@+id/txv_lable_name"
+                    android:text="张三" />
+
+                <!--头像-->
+                <ImageView
+                    android:id="@+id/img_header"
+                    android:layout_width="80dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/txv_lable_name"
+                    android:background="@drawable/bg_border_gray_5" />
+
+                <!--性别-->
+                <TextView
+                    android:id="@+id/txv_lable_sex"
+                    style="@style/lab_title_blue"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/txv_lable_name"
+                    android:layout_marginTop="@dimen/padding_l"
+                    android:text="@string/lable_sex" />
+
+                <TextView
+                    android:id="@+id/txv_sex"
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_sex"
+                    android:layout_toEndOf="@+id/txv_lable_sex"
+                    android:text="男" />
+
+                <!--民族-->
+                <TextView
+                    android:id="@+id/txv_lable_nation"
+                    style="@style/lab_title_blue"
+                    android:layout_alignBaseline="@+id/txv_lable_sex"
+                    android:layout_marginLeft="40dp"
+                    android:layout_toRightOf="@+id/txv_sex"
+                    android:text="@string/lable_nation" />
+
+                <TextView
+                    android:id="@+id/txv_nation"
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_nation"
+                    android:layout_toEndOf="@+id/txv_lable_nation"
+                    android:text="汉" />
+
+                <!--出生-->
+                <TextView
+                    android:id="@+id/txv_lable_born"
+                    style="@style/lab_title_blue"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/txv_lable_sex"
+                    android:layout_marginTop="@dimen/padding_l"
+                    android:text="@string/lable_born" />
+
+                <TextView
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_born"
+                    android:layout_toEndOf="@+id/txv_lable_born"
+                    android:text="1990年6月27日" />
+
+                <!--住址-->
+                <LinearLayout
+                    android:id="@+id/lin_address"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/txv_lable_born"
+                    android:layout_marginRight="@dimen/padding_m"
+                    android:layout_marginTop="@dimen/padding_l"
+                    android:layout_toStartOf="@+id/img_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txv_lable_address"
+                        style="@style/lab_title_blue"
+                        android:text="@string/lable_address" />
+
+                    <TextView
+                        android:id="@+id/txv_address"
+                        style="@style/lab_value_black"
+                        android:text="四川省成都市成华区玉林路99号1栋1单元901" />
+
+                </LinearLayout>
+
+
+                <!--身份证-->
+                <TextView
+                    android:id="@+id/txv_lable_idnum"
+                    style="@style/lab_title_blue"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/lin_address"
+                    android:layout_marginTop="11dp"
+                    android:text="@string/lable_idnum" />
+
+                <TextView
+                    style="@style/lab_value_black"
+                    android:layout_alignBaseline="@+id/txv_lable_idnum"
+                    android:layout_toEndOf="@+id/txv_lable_idnum"
+                    android:text="510622199909098877" />
 
             </RelativeLayout>
 
             <LinearLayout
-                style="@style/info_row">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_l"
+                android:paddingRight="@dimen/padding_l"
+                android:paddingTop="26dp"
+                android:paddingBottom="26dp"
+                android:background="@drawable/bg_register_info"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="加油卡号："/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/info_row">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="车辆类型："/>
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="摩托车"
-                    android:paddingRight="@dimen/padding_xl"
-                    android:drawableRight="@mipmap/ic_expand_trangle"/>
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@mipmap/bg_gas_card"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-            <LinearLayout
-                style="@style/info_row">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_l"
+                            android:text="@string/lable_gasnumber"
+                            android:textColor="@color/text_black_gray"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="    车牌号："/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_m"
+                            android:textSize="@dimen/text_xl"
+                            android:text="CA007"
+                            android:textColor="@color/text_blue"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="60dp"
-                    android:paddingLeft="@dimen/padding_m"
-                    android:paddingRight="@dimen/padding_m"
-                    android:drawablePadding="@dimen/padding_s"
-                    android:onClick="@{viewModel.onCarBandClick}"
-                    android:text="@{viewModel.carProvinceMark}"
-                    android:drawableRight="@mipmap/ic_expand_trangle"/>
+                    </LinearLayout>
 
-                <EditText
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/padding_l"
+                        android:background="@drawable/bg_border_gray_5"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/ic_takephoto"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <!--车辆类型-->
+                <LinearLayout style="@style/info_row">
+
+                    <TextView
+                        style="@style/lab_title_blue2"
+                        android:text="@string/lable_car_type" />
+
+                    <LinearLayout
+                        style="@style/lin_input_row">
+
+                        <TextView
+                            style="@style/txv_input_lefticon"/>
+
+                        <TextView
+                            style="@style/txv_input_balck"
+                            android:text="摩托车"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--车牌类型-->
+                <LinearLayout style="@style/info_row">
+
+                    <TextView
+                        style="@style/lab_title_blue2"
+                        android:text="@string/lable_brand_type" />
+
+                    <LinearLayout
+                        style="@style/lin_input_row">
+
+                        <TextView
+                            style="@style/txv_input_lefticon"/>
+
+                        <TextView
+                            style="@style/txv_input_balck"
+                            android:text="蓝牌"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--车牌号码-->
+                <LinearLayout style="@style/info_row">
+
+                    <TextView
+                        style="@style/lab_title_blue2"
+                        android:text="@string/lable_brand_num" />
+
+                    <LinearLayout
+                        style="@style/lin_input_row">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="@dimen/padding_m"
+                            android:textSize="@dimen/text_m_l"
+                            android:textColor="@color/text_black_gray"
+                            android:text="川"
+                            android:drawableLeft="@mipmap/ic_expand_trangle"
+                            android:drawablePadding="@dimen/padding_m"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_m_l"
+                            android:textColor="@color/text_gray"
+                            android:text="|"/>
+
+                        <EditText
+                            style="@style/txv_input_balck"
+                            android:background="@color/transparent"
+                            android:hint="请输入车牌号"
+                            android:text=""/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--油品种类-->
+                <LinearLayout style="@style/info_row">
+
+                    <TextView
+                        style="@style/lab_title_blue2"
+                        android:text="@string/lable_gas_type" />
+
+                    <LinearLayout
+                        style="@style/lin_input_row">
+
+                        <TextView
+                            style="@style/txv_input_lefticon"/>
+
+                        <TextView
+                            style="@style/txv_input_balck"
+                            android:text="汽油92#"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--加油量-->
+                <LinearLayout style="@style/info_row">
+
+                    <TextView
+                        style="@style/lab_title_blue2"
+                        android:text="@string/lable_gas_amount" />
+
+                    <EditText
+                        style="@style/lin_input_row"
+                        android:textColor="@color/text_black_gray"
+                        android:textSize="@dimen/text_m_l"
+                        android:hint="请输入加油量"
+                        android:text=""/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_m"
+                        android:textSize="@dimen/text_m_l"
+                        android:textColor="@color/text_black_gray"
+                        android:text="@string/lable_gas_unit"/>
+
+                </LinearLayout>
+
+                <!--操作人员信息-->
+                <LinearLayout style="@style/info_row"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_gray"
+                        android:textSize="@dimen/text_m"
+                        android:text="@string/lable_register_site"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_gray"
+                        android:textSize="@dimen/text_m"
+                        android:text="中石化加油站"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_gray"
+                        android:layout_marginLeft="@dimen/padding_l"
+                        android:textSize="@dimen/text_m"
+                        android:text="@string/lable_oporator"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_gray"
+                        android:textSize="@dimen/text_m"
+                        android:text="张三"/>
+
+                </LinearLayout>
+
+                <Button
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_l"
+                    android:text="@string/btn_upload"
+                    android:textSize="@dimen/text_l"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_corner_blue_5"/>
 
             </LinearLayout>
-
 
         </LinearLayout>
 
