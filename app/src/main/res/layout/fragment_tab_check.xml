@@ -20,10 +20,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/bg_idcard"
-                android:paddingBottom="@dimen/padding_xl"
+                android:paddingBottom="@dimen/padding_l"
                 android:paddingLeft="@dimen/padding_l"
                 android:paddingRight="@dimen/padding_l"
-                android:paddingTop="@dimen/padding_xl">
+                android:paddingTop="@dimen/padding_l">
 
                 <!--姓名-->
                 <TextView
@@ -136,54 +136,77 @@
             </RelativeLayout>
 
             <LinearLayout
-                style="@style/info_row"
-                android:layout_marginTop="@dimen/padding_l">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/padding_l"
+                android:paddingRight="@dimen/padding_l">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="加油卡号："/>
+                <LinearLayout
+                    style="@style/info_row"
+                    android:layout_marginTop="@dimen/padding_l">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        style="@style/lab_title_blue3"
+                        android:text="加油卡号："/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CA00231"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/info_row">
+
+                    <TextView
+                        style="@style/lab_title_blue3"
+                        android:text="车辆类型："/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="摩托车"
+                        android:paddingRight="@dimen/padding_xl"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/info_row">
+
+                    <TextView
+                        style="@style/lab_title_blue3"
+                        android:text="车牌号："/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/padding_m"
+                        android:paddingRight="@dimen/padding_m"
+                        android:drawablePadding="@dimen/padding_s"
+                        android:text="川A123456"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/info_row">
+
+                    <TextView
+                        style="@style/lab_title_blue3"
+                        android:text="行驶证号："/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/padding_m"
+                        android:paddingRight="@dimen/padding_m"
+                        android:drawablePadding="@dimen/padding_s"
+                        android:text="51055668899545"/>
+
+                </LinearLayout>
 
             </LinearLayout>
-
-            <LinearLayout
-                style="@style/info_row">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="车辆类型："/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="摩托车"
-                    android:paddingRight="@dimen/padding_xl"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/info_row">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="车牌号："/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/padding_m"
-                    android:paddingRight="@dimen/padding_m"
-                    android:drawablePadding="@dimen/padding_s"
-                    android:text="川A123456"/>
-
-            </LinearLayout>
-
 
         </LinearLayout>
 
