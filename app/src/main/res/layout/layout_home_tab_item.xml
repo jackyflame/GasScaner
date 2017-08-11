@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:paddingTop="@dimen/padding_l"
-    android:paddingBottom="@dimen/padding_l"
+    android:paddingTop="@dimen/padding_m"
+    android:paddingBottom="@dimen/padding_m"
     android:orientation="vertical">
 
     <ImageView
@@ -16,7 +16,6 @@
         android:id="@+id/txv_tab_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="2dp"
         android:textColor="@color/main_tab_text_selector" />
 
 </LinearLayout>

@@ -11,7 +11,7 @@
     <style name="info_row">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:layout_marginTop">@dimen/padding_l</item>
+        <item name="android:layout_marginTop">@dimen/padding_m</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
     </style>
@@ -24,7 +24,7 @@
     </style>
 
     <style name="lab_title_blue2" parent="lab_title_blue">
-        <item name="android:minWidth">60dp</item>
+        <item name="android:minWidth">55dp</item>
         <item name="android:gravity">center_vertical|right</item>
     </style>
 
@@ -36,22 +36,27 @@
     </style>
 
     <style name="lin_input_row">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/padding_m</item>
+        <item name="android:paddingRight">@dimen/padding_m</item>
+        <item name="android:layout_marginLeft">@dimen/padding_m</item>
+        <item name="android:background">@drawable/bg_border_gray_5</item>
+    </style>
+
+    <style name="lin_input_row_wt" parent="lin_input_row">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">@dimen/padding_l</item>
-        <item name="android:paddingRight">@dimen/padding_l</item>
-        <item name="android:layout_marginLeft">@dimen/padding_l</item>
-        <item name="android:background">@drawable/bg_border_gray_5</item>
     </style>
 
     <style name="txv_input_lefticon">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:drawableLeft">@mipmap/ic_expand_trangle</item>
-        <item name="android:drawablePadding">@dimen/padding_m</item>
+        <item name="android:drawablePadding">@dimen/padding_s</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:text">|</item>
         <item name="android:textSize">@dimen/text_m_l</item>

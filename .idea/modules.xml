@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/greendaolib/greendaolib.iml" filepath="$PROJECT_DIR$/greendaolib/greendaolib.iml" />
       <module fileurl="file://$PROJECT_DIR$/scanerlib/scanerlib.iml" filepath="$PROJECT_DIR$/scanerlib/scanerlib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/scanerlib/scanerlib.iml" filepath="$PROJECT_DIR$/scanerlib/scanerlib.iml" />
     </modules>
   </component>
 </project>
