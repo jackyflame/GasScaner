@@ -18,8 +18,8 @@
             <!--身份证信息-->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/bg_idcard"
+                android:layout_height="180dp"
+                android:background="@mipmap/bg_idcard_real"
                 android:paddingBottom="@dimen/padding_l"
                 android:paddingLeft="@dimen/padding_l"
                 android:paddingRight="@dimen/padding_l"
