@@ -34,4 +34,6 @@
     <string name="lable_oporator">操作员：</string>
     <string name="btn_upload">点击上传</string>
 
+    <string name="id_birthday_format">%1$s年%2$s月%3$s日</string>
+
 </resources>
