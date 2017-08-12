@@ -120,6 +120,9 @@ public class GasRecordEntity extends BaseNetEntity {
     }
 
     public String getGasMountStr(){
+        if(gasMount <= 0){
+            return "";
+        }
         return String.valueOf(gasMount);
     }
 

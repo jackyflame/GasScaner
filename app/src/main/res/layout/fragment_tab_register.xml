@@ -278,6 +278,8 @@
                             android:background="@color/transparent"
                             android:hint="请输入车牌号"
                             android:maxLength="7"
+                            android:imeOptions="actionDone"
+                            app:onEditorActionListener="@{viewModel}"
                             android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:text="@={viewModel.gasRecordEntity.plateOtherNum}"
                             />
@@ -323,6 +325,8 @@
                         android:textSize="@dimen/text_m_l"
                         android:hint="录入加油量"
                         android:inputType="number"
+                        android:imeOptions="actionDone"
+                        app:onEditorActionListener="@{viewModel}"
                         android:text="@={viewModel.gasRecordEntity.gasMountStr}"/>
 
                     <TextView

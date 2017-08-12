@@ -7,8 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.haozi.baselibrary.utils.StringUtil;
@@ -17,15 +21,17 @@ import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.vm.BaseVM;
 import com.jf.gasscaner.net.entity.GasRecordEntity;
+import com.jf.gasscaner.ui.RigisterFragment;
 import com.speedata.libid2.IDInfor;
 
 /**
  * Created by admin on 2017/8/9.
  */
 
-public class RigisterFragmentVM extends BaseVM{
+public class RigisterFragmentVM extends BaseVM implements TextView.OnEditorActionListener {
 
     private Activity activity;
+    private RigisterFragment fragment;
     /**车牌汉字列表*/
     private String[] provinceArray;
     /**车辆类型列表*/
@@ -39,8 +45,9 @@ public class RigisterFragmentVM extends BaseVM{
     private IDInfor idInfor;
     private GasRecordEntity gasRecordEntity;
 
-    public RigisterFragmentVM(FragmentActivity activity) {
-        this.activity = activity;
+    public RigisterFragmentVM(RigisterFragment fragment) {
+        this.activity = fragment.getActivity();
+        this.fragment = fragment;
 
         idInfor = new IDInfor();
         idInfor.setName("张三");
@@ -226,5 +233,15 @@ public class RigisterFragmentVM extends BaseVM{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
+        //点击完成，下一步操作
+        if (event != null && (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT
+                || event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+            fragment.hideKeyboard();
+        }
+        return false;
     }
 }

@@ -18,7 +18,7 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bindLayout(inflater, R.layout.fragment_tab_register,container,new RigisterFragmentVM(getActivity()));
+        bindLayout(inflater, R.layout.fragment_tab_register,container,new RigisterFragmentVM(this));
         initView();
         return mRootView;
     }
