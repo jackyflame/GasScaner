@@ -14,7 +14,6 @@ import com.jf.gasscaner.vm.RigisterFragmentVM;
 /**
  * Created by admin on 2017/8/9.
  */
-
 public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,RigisterFragmentVM> {
 
     @Override

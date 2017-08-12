@@ -9,8 +9,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.haozi.baselibrary.utils.StringUtil;
+import com.haozi.baselibrary.utils.ViewUtils;
 import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.vm.BaseVM;
@@ -36,7 +38,6 @@ public class RigisterFragmentVM extends BaseVM{
 
     private IDInfor idInfor;
     private GasRecordEntity gasRecordEntity;
-    private String carProvinceMark;
 
     public RigisterFragmentVM(FragmentActivity activity) {
         this.activity = activity;
@@ -73,11 +74,8 @@ public class RigisterFragmentVM extends BaseVM{
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position) {
                         //保存选择字母编号
-                        setCarProvinceMark(provinceArray[position]);
-                        //刷新编码（选择字母的时候裁剪5位超长号码）
-
-                        //刷新数据
-
+                        gasRecordEntity.setPlateFirstNum(provinceArray[position]);
+                        notifyPropertyChanged(BR.gasRecordEntity);
                     }
                 })
                 .create()
@@ -157,22 +155,19 @@ public class RigisterFragmentVM extends BaseVM{
                 .show();
     }
 
-    @Bindable
-    public String getCarProvinceMark() {
-        if(StringUtil.isEmpty(carProvinceMark)){
-            if(gasRecordEntity != null){
-                carProvinceMark = gasRecordEntity.getPlateFirst();
-            }
-            if(StringUtil.isEmpty(carProvinceMark)){
-                carProvinceMark = "川";
-            }
+    public void onUploadRecordClick(View view){
+        if(gasRecordEntity == null){
+            Toast.makeText(activity,"获取登记信息失败",Toast.LENGTH_SHORT).show();
+            return;
         }
-        return carProvinceMark;
-    }
-
-    public void setCarProvinceMark(String carProvinceMark) {
-        this.carProvinceMark = carProvinceMark;
-        notifyPropertyChanged(BR.carProvinceMark);
+        if(StringUtil.isEmpty(gasRecordEntity.getGasType())){
+            Toast.makeText(activity,"请选择油品种类",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(gasRecordEntity.getGasMount()<=0){
+            Toast.makeText(activity,"请填写加油量",Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 
     @Bindable
@@ -202,8 +197,6 @@ public class RigisterFragmentVM extends BaseVM{
     public boolean getPlateTypeVisible(){
         //散装油
         if(gasRecordEntity != null && gasRecordEntity.getCarType() != null && gasRecordEntity.getCarType().equals("5")){
-            gasRecordEntity.setPlateType(null);
-            gasRecordEntity.setPlateTypeName(null);
             return false;
         }
         return true;

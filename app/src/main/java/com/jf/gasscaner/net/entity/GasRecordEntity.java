@@ -26,6 +26,9 @@ public class GasRecordEntity extends BaseNetEntity {
     private String gasType;
     private int gasMount;
 
+    private String plateFirstNum;
+    private String plateOtherNum;
+
     private String oporator;
     private String gasStation;
 
@@ -116,8 +119,20 @@ public class GasRecordEntity extends BaseNetEntity {
         return gasMount;
     }
 
+    public String getGasMountStr(){
+        return String.valueOf(gasMount);
+    }
+
     public void setGasMount(int gasMount) {
         this.gasMount = gasMount;
+    }
+
+    public void setGasMountStr(String gasMount){
+        if(StringUtil.isInteger(gasMount)){
+            setGasMount(Integer.valueOf(gasMount));
+        }else{
+            setGasMount(0);
+        }
     }
 
     public String getOporator() {
@@ -219,21 +234,38 @@ public class GasRecordEntity extends BaseNetEntity {
         setDay(idInfo.getDay());
     }
 
-    public String getPlateFirst(){
-        if(StringUtil.isEmpty(plateNum) || !StringUtil.isChinese(plateNum.substring(0,1))){
-            return "";
+    public String getPlateFirstNum(){
+        if(StringUtil.isEmpty(plateFirstNum)){
+            if(StringUtil.isEmpty(plateNum)){
+                plateFirstNum = "川";
+            }else if(!StringUtil.isChinese(plateNum.substring(0,1))){
+                plateFirstNum = "";
+            }else{
+                plateFirstNum = plateNum.substring(0,1);
+            }
         }
-        return plateNum.substring(0,1);
+        return plateFirstNum;
     }
 
-    public String getPlateOthers(){
-        if(StringUtil.isEmpty(plateNum)){
-            return "";
+    public void setPlateFirstNum(String plateFirstNum) {
+        this.plateFirstNum = plateFirstNum;
+    }
+
+    public String getPlateOtherNum(){
+        if(StringUtil.isEmpty(plateOtherNum)) {
+            if (StringUtil.isEmpty(plateNum)) {
+                plateOtherNum = "";
+            //头字是汉字
+            }else if (StringUtil.isChinese(plateNum.substring(0, 1))) {
+                plateOtherNum = plateNum.substring(1);
+            }else{
+                plateOtherNum = plateNum;
+            }
         }
-        //头字是汉字
-        if(StringUtil.isChinese(plateNum.substring(0,1))){
-            return plateNum.substring(1);
-        }
-        return plateNum;
+        return plateOtherNum;
+    }
+
+    public void setPlateOtherNum(String plateOtherNum) {
+        this.plateOtherNum = plateOtherNum;
     }
 }
