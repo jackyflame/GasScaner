@@ -18,6 +18,8 @@ public abstract class FileUtil {
 
     public static String PROJECT_DIR;
     public static String PROJECT_IMAGE_DIR;
+    public static String PROJECT_IMAGETAKE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath()
+            + File.separator + BaseApplication.getInstance().getPackageName() + File.separator + "CacheImage";
 
     private static final String TAG = "FileUtil";
 

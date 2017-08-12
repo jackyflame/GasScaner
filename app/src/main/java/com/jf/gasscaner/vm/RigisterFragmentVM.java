@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.haozi.baselibrary.utils.StringUtil;
+import com.haozi.baselibrary.utils.SystemUtil;
 import com.haozi.baselibrary.utils.ViewUtils;
 import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
@@ -175,6 +176,11 @@ public class RigisterFragmentVM extends BaseVM implements TextView.OnEditorActio
             Toast.makeText(activity,"请填写加油量",Toast.LENGTH_SHORT).show();
             return;
         }
+    }
+
+    public void onImageTakeClick(View view){
+        SystemUtil.takePicture(fragment,fragment.INPUT_CONTENT_TACKPIC);
+        //SystemUtil.addImage(fragment,fragment.INPUT_CONTENT_ADDPIC);
     }
 
     @Bindable

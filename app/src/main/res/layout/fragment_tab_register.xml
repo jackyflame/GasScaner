@@ -184,10 +184,12 @@
                         android:layout_weight="1">
 
                         <ImageView
+                            android:id="@+id/img_takepic"
+                            android:onClick="@{viewModel.onImageTakeClick}"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="1dp"
-                            android:layout_marginBottom="1dp"
+                            android:layout_margin="1dp"
+                            android:background="@color/colorAccent"
                             android:layout_centerInParent="true"
                             android:src="@mipmap/ic_takephoto"/>
 
