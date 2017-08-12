@@ -277,9 +277,11 @@
                             style="@style/txv_input_balck"
                             android:background="@color/transparent"
                             android:hint="请输入车牌号"
-                            android:textAllCaps="true"
+                            android:maxLength="7"
+                            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:text="@{viewModel.gasRecordEntity.plateOthers}"
-                            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
+                            />
+                        <!--android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"-->
 
                     </LinearLayout>
 
