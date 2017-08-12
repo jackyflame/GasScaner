@@ -10,9 +10,11 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.haozi.baselibrary.utils.StringUtil;
 import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.vm.BaseVM;
+import com.jf.gasscaner.net.entity.GasRecordEntity;
 import com.speedata.libid2.IDInfor;
 
 /**
@@ -22,11 +24,19 @@ import com.speedata.libid2.IDInfor;
 public class RigisterFragmentVM extends BaseVM{
 
     private Activity activity;
-    /**当前序列号字母列表*/
+    /**车牌汉字列表*/
     private String[] provinceArray;
-    private String carProvinceMark;
+    /**车辆类型列表*/
+    private String[] cartypeArray;
+    private String[] cartypeNameArray;
+    /**车牌类型列表*/
+    private String[] platetypeArray;
+    /**油类型列表*/
+    private String[] gastypeArray;
 
     private IDInfor idInfor;
+    private GasRecordEntity gasRecordEntity;
+    private String carProvinceMark;
 
     public RigisterFragmentVM(FragmentActivity activity) {
         this.activity = activity;
@@ -48,9 +58,13 @@ public class RigisterFragmentVM extends BaseVM{
         //        + idInfor1.getAddress() + "\n出生：" + idInfor1.getYear() + "年" + idInfor1
         //        .getMonth() + "月" + idInfor1.getDay() + "日" + "\n有效期限：" + idInfor1
         //        .getDeadLine());
+
+        gasRecordEntity = new GasRecordEntity();
+        gasRecordEntity.setIdInfo(idInfor);
+        gasRecordEntity.setCardNum("T1234");
     }
 
-    public void onCarBandClick(View view){
+    public void onPlateFirstClick(View view){
         if(provinceArray == null){
             provinceArray = activity.getResources().getStringArray(R.array.car_mark_items);
         }
@@ -59,7 +73,7 @@ public class RigisterFragmentVM extends BaseVM{
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position) {
                         //保存选择字母编号
-                        carProvinceMark = provinceArray[position];
+                        setCarProvinceMark(provinceArray[position]);
                         //刷新编码（选择字母的时候裁剪5位超长号码）
 
                         //刷新数据
@@ -70,8 +84,89 @@ public class RigisterFragmentVM extends BaseVM{
                 .show();
     }
 
+    public void onCarTypeClick(View view){
+        if(cartypeArray == null){
+            cartypeArray = activity.getResources().getStringArray(R.array.car_type_items);
+            cartypeNameArray = new String[cartypeArray.length];
+            for (int i=0;i<cartypeArray.length;i++) {
+                String[] itemArray = cartypeArray[i].split(",");
+                if(itemArray.length > 0){
+                    cartypeNameArray[i] = itemArray[0];
+                }else{
+                    cartypeNameArray[i] = "--";
+                }
+            }
+        }
+        new AlertDialog.Builder(activity).setItems(cartypeNameArray,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position) {
+                        //保存选择字母编号
+                        String[] itemArray = cartypeArray[position].split(",");
+                        if(itemArray.length >= 2){
+                            gasRecordEntity.setCarTypeName(itemArray[0]);
+                            gasRecordEntity.setCarType(itemArray[1]);
+                            //散装油
+                            if(gasRecordEntity.getCarType().equals("5")){
+                                gasRecordEntity.setPlateType(null);
+                                gasRecordEntity.setPlateTypeName(null);
+                                gasRecordEntity.setCardNum(null);
+                            }
+                            notifyPropertyChanged(BR.gasRecordEntity);
+                            notifyPropertyChanged(BR.plateTypeVisible);
+                            notifyPropertyChanged(BR.plateVisible);
+                        }
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    public void onPlateTypetClick(View view){
+        if(platetypeArray == null){
+            platetypeArray = activity.getResources().getStringArray(R.array.plate_type_items);
+        }
+        new AlertDialog.Builder(activity)
+                .setItems(platetypeArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position) {
+                        //刷新数据
+                        gasRecordEntity.setPlateTypeName(platetypeArray[position]);
+                        notifyPropertyChanged(BR.gasRecordEntity);
+                        notifyPropertyChanged(BR.plateFirstVisible);
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    public void onGasTypetClick(View view){
+        if(gastypeArray == null){
+            gastypeArray = activity.getResources().getStringArray(R.array.gas_type_items);
+        }
+        new AlertDialog.Builder(activity)
+                .setItems(gastypeArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position) {
+                        //刷新数据
+                        gasRecordEntity.setGasType(gastypeArray[position]);
+                        notifyPropertyChanged(BR.gasRecordEntity);
+                    }
+                })
+                .create()
+                .show();
+    }
+
     @Bindable
     public String getCarProvinceMark() {
+        if(StringUtil.isEmpty(carProvinceMark)){
+            if(gasRecordEntity != null){
+                carProvinceMark = gasRecordEntity.getPlateFirst();
+            }
+            if(StringUtil.isEmpty(carProvinceMark)){
+                carProvinceMark = "川";
+            }
+        }
         return carProvinceMark;
     }
 
@@ -88,5 +183,55 @@ public class RigisterFragmentVM extends BaseVM{
     public void setIdInfor(IDInfor idInfor) {
         this.idInfor = idInfor;
         notifyPropertyChanged(BR.idInfor);
+    }
+
+    @Bindable
+    public GasRecordEntity getGasRecordEntity() {
+        return gasRecordEntity;
+    }
+
+    public void setGasRecordEntity(GasRecordEntity gasRecordEntity) {
+        this.gasRecordEntity = gasRecordEntity;
+        notifyPropertyChanged(BR.gasRecordEntity);
+    }
+
+    /**
+     * 车牌类型
+     * */
+    @Bindable
+    public boolean getPlateTypeVisible(){
+        //散装油
+        if(gasRecordEntity != null && gasRecordEntity.getCarType() != null && gasRecordEntity.getCarType().equals("5")){
+            gasRecordEntity.setPlateType(null);
+            gasRecordEntity.setPlateTypeName(null);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 车牌号首汉字
+     * */
+    @Bindable
+    public boolean getPlateFirstVisible(){
+        //散装油
+        if(gasRecordEntity != null && gasRecordEntity.getCarType() != null && gasRecordEntity.getCarType().equals("5")){
+            return false;
+        }else if(gasRecordEntity != null && gasRecordEntity.getPlateTypeName() != null && gasRecordEntity.getPlateTypeName().equals("其他")){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 车牌号
+     * */
+    @Bindable
+    public boolean getPlateVisible(){
+        //散装油
+        if(gasRecordEntity != null && gasRecordEntity.getCarType() != null && gasRecordEntity.getCarType().equals("5")){
+            return false;
+        }
+        return true;
     }
 }

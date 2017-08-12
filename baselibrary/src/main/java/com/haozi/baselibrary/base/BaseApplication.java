@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.haozi.baselibrary.utils.FileUtil;
+
 /**
  * Created by Android Studio.
  * ProjectName: shenbian_android_cloud_speaker
@@ -20,6 +22,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
+        FileUtil.initDir();
         registerActivityLifecycleCallbacks();
     }
 

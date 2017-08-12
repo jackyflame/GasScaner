@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.jf.gasscaner.vm.RigisterFragmentVM" />
@@ -170,7 +171,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/padding_s"
                             android:textSize="22sp"
-                            android:text="CA007"
+                            android:text="@{viewModel.gasRecordEntity.cardNum}"
                             android:textColor="@color/text_blue"/>
 
                     </LinearLayout>
@@ -202,15 +203,18 @@
                         android:text="@string/lable_car_type" />
 
                     <LinearLayout
-                        style="@style/lin_input_row_wt">
+                        android:onClick="@{viewModel.onCarTypeClick}"
+                        android:paddingRight="0dp"
+                        style="@style/lin_input_row">
 
                         <TextView
                             style="@style/txv_input_lefticon"/>
 
                         <TextView
                             style="@style/txv_input_balck"
-                            android:text="摩托车"
-                            android:layout_width="25dp" />
+                            android:text="@{viewModel.gasRecordEntity.carTypeName}"
+                            android:paddingRight="0dp"
+                            android:layout_width="80dp" />
 
                     </LinearLayout>
 
@@ -218,9 +222,12 @@
                     <TextView
                         style="@style/lab_title_blue2"
                         android:layout_marginLeft="@dimen/padding_m"
+                        android:visibility="@{viewModel.plateTypeVisible?View.VISIBLE:View.INVISIBLE}"
                         android:text="@string/lable_brand_type" />
 
                     <LinearLayout
+                        android:onClick="@{viewModel.onPlateTypetClick}"
+                        android:visibility="@{viewModel.plateTypeVisible?View.VISIBLE:View.INVISIBLE}"
                         style="@style/lin_input_row_wt">
 
                         <TextView
@@ -228,14 +235,16 @@
 
                         <TextView
                             style="@style/txv_input_balck"
-                            android:text="蓝牌"/>
+                            android:text="@{viewModel.gasRecordEntity.plateTypeName}"/>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <!--车牌号码-->
-                <LinearLayout style="@style/info_row">
+                <LinearLayout
+                    android:visibility="@{viewModel.plateVisible?View.VISIBLE:View.GONE}"
+                    style="@style/info_row">
 
                     <TextView
                         style="@style/lab_title_blue2"
@@ -247,10 +256,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingRight="@dimen/padding_m"
+                            android:paddingRight="@dimen/padding_l"
                             android:textSize="@dimen/text_m_l"
                             android:textColor="@color/text_black_gray"
-                            android:text="川"
+                            android:onClick="@{viewModel.onPlateFirstClick}"
+                            android:text="@{viewModel.carProvinceMark}"
+                            android:visibility="@{viewModel.plateFirstVisible?View.VISIBLE:View.GONE}"
                             android:drawableLeft="@mipmap/ic_expand_trangle"
                             android:drawablePadding="@dimen/padding_m"/>
 
@@ -258,6 +269,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/text_m_l"
+                            android:visibility="@{viewModel.plateFirstVisible?View.VISIBLE:View.GONE}"
                             android:textColor="@color/text_gray"
                             android:text="|"/>
 
@@ -265,7 +277,9 @@
                             style="@style/txv_input_balck"
                             android:background="@color/transparent"
                             android:hint="请输入车牌号"
-                            android:text=""/>
+                            android:textAllCaps="true"
+                            android:text="@{viewModel.gasRecordEntity.plateOthers}"
+                            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
 
                     </LinearLayout>
 
@@ -279,30 +293,35 @@
                         android:text="@string/lable_gas_type" />
 
                     <LinearLayout
+                        android:onClick="@{viewModel.onGasTypetClick}"
+                        android:paddingRight="0dp"
                         style="@style/lin_input_row">
 
                         <TextView
-                            style="@style/txv_input_lefticon"/>
+                            style="@style/txv_input_lefticon"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content" />
 
                         <TextView
                             style="@style/txv_input_balck"
-                            android:text="汽油92#"/>
+                            android:layout_width="80dp"
+                            android:text="@{viewModel.gasRecordEntity.gasType}"/>
 
                     </LinearLayout>
 
                     <!--加油量-->
                     <TextView
                         style="@style/lab_title_blue2"
-                        android:minWidth="0dp"
                         android:layout_marginLeft="@dimen/padding_m"
                         android:text="@string/lable_gas_amount" />
 
                     <EditText
-                        style="@style/lin_input_row"
+                        style="@style/lin_input_row_wt"
                         android:textColor="@color/text_black_gray"
                         android:textSize="@dimen/text_m_l"
                         android:hint="录入加油量"
-                        android:text=""/>
+                        android:inputType="number"
+                        android:text="@{String.valueOf(viewModel.gasRecordEntity.gasMount)}"/>
 
                     <TextView
                         android:layout_width="wrap_content"
