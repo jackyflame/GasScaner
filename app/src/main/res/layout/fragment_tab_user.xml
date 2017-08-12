@@ -11,15 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:background="@color/white">
+        android:background="@mipmap/bg_person">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:paddingTop="@dimen/padding_m"
             android:paddingLeft="@dimen/padding_m"
-            android:paddingRight="@dimen/padding_m"
-            android:background="@color/white">
+            android:paddingRight="@dimen/padding_m">
 
             <ImageView
                 android:id="@+id/img_setting"
