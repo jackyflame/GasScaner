@@ -9,11 +9,19 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Locale;
+
 /**
  * Created by Haozi on 2017/8/12.
  */
 
 public class BitmapUtils {
+
+    public static final String FILE_NAME_SUFFIX_PNG = ".png";
 
     /**
      * 得到缩略图
@@ -93,8 +101,7 @@ public class BitmapUtils {
      * @param borderWidth set <=0 means never draw border.
      * @return
      */
-    public static Bitmap getRoundIcon(Bitmap source, int dstWidth,
-                                      int dstHeight, int borderColor, int borderWidth) {
+    public static Bitmap getRoundIcon(Bitmap source, int dstWidth, int dstHeight, int borderColor, int borderWidth) {
 
         Bitmap ret = Bitmap.createBitmap(dstWidth, dstHeight, Bitmap.Config.ARGB_8888);
 
@@ -184,5 +191,60 @@ public class BitmapUtils {
         }
 
         return bitmap;
+    }
+
+    /**
+     * 把图片写入SD卡
+	 * @param bmp 图片
+	 * @param file 目标文件
+	 * @param quality 图片质量
+	 * @return 是否成功
+	 */
+    public static boolean writeBmpToSDCard(Bitmap bmp, File file, int quality) {
+        try {
+            ByteArrayOutputStream baosm = new ByteArrayOutputStream();
+            //如果文件路径分析出来后缀名为png，则以PNG格式编码存储
+            if (file.getPath().toLowerCase(Locale.getDefault()).endsWith(FILE_NAME_SUFFIX_PNG)) {
+                bmp.compress(Bitmap.CompressFormat.PNG, quality, baosm);
+                //否则均以JEPG格式编码存储
+            } else {
+                bmp.compress(Bitmap.CompressFormat.JPEG, quality, baosm);
+            }
+            //转换为二进制流
+            byte[] bts = baosm.toByteArray();
+            //如果文件存在，则删除文件
+            if (file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+            //将文件写入缓存目录（以当前毫秒数为缓存文件名）
+            File tempFile = new File(FileUtil.PROJECT_IMAGE_DIR,Long.toString(System.currentTimeMillis()));
+            //开始写入文件
+            FileOutputStream fosm = new FileOutputStream(tempFile);
+            BufferedOutputStream bos = new BufferedOutputStream(fosm);
+            bos.write(bts);
+            bos.flush();
+            bos.close();
+            fosm.close();
+            //将文件重命名至目标文件
+            tempFile.renameTo(file);
+            //返回写入成功
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //返回写入失败
+        return false;
+    }
+
+    /**
+     * 把图片写入SD卡
+     * @param bmp 图片
+     * @param filePath 目标文件地址
+     * @param quality 图片质量
+     * @return 是否成功
+     */
+    public static boolean writeBmpToSDCard(Bitmap bmp, String filePath,int quality) {
+        return writeBmpToSDCard(bmp, new File(filePath), quality);
     }
 }
