@@ -8,6 +8,7 @@
     </data>
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
+        android:background="@mipmap/bg_person"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,7 +20,7 @@
             <!--身份证信息-->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="165dp"
                 android:background="@mipmap/bg_idcard_real"
                 android:paddingBottom="@dimen/padding_l"
                 android:paddingLeft="@dimen/padding_l"
@@ -136,14 +137,18 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_l"
+                android:background="@mipmap/bg_trans_diver"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/padding_l"
                 android:paddingRight="@dimen/padding_l"
-                android:paddingTop="26dp"
-                android:paddingBottom="26dp"
-                android:background="@drawable/bg_register_info"
+                android:paddingTop="@dimen/padding_l"
+                android:paddingBottom="@dimen/padding_l"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -188,9 +193,9 @@
                             android:onClick="@{viewModel.onImageTakeClick}"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="1dp"
-                            android:layout_centerInParent="true"
-                            android:src="@mipmap/ic_takephoto"/>
+                            android:src="@mipmap/ic_takephoto"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
 
@@ -388,6 +393,11 @@
                     android:background="@drawable/bg_corner_blue_5"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_l"
+                android:background="@mipmap/bg_trans_diver"/>
 
         </LinearLayout>
 
