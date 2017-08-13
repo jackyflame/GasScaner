@@ -202,7 +202,7 @@
                 </LinearLayout>
 
                 <!--车辆类型-->
-                <LinearLayout style="@style/info_row">
+                <LinearLayout style="@style/info_row2">
 
                     <TextView
                         style="@style/lab_title_blue2"
@@ -250,7 +250,7 @@
                 <!--车牌号码-->
                 <LinearLayout
                     android:visibility="@{viewModel.plateVisible?View.VISIBLE:View.GONE}"
-                    style="@style/info_row">
+                    style="@style/info_row2">
 
                     <TextView
                         style="@style/lab_title_blue2"
@@ -296,7 +296,7 @@
                 </LinearLayout>
 
                 <!--油品种类-->
-                <LinearLayout style="@style/info_row">
+                <LinearLayout style="@style/info_row2">
 
                     <TextView
                         style="@style/lab_title_blue2"
@@ -327,6 +327,8 @@
 
                     <EditText
                         style="@style/lin_input_row_wt"
+                        android:paddingLeft="@dimen/padding_s"
+                        android:paddingRight="@dimen/padding_s"
                         android:textColor="@color/text_black_gray"
                         android:textSize="@dimen/text_m_l"
                         android:hint="录入加油量"

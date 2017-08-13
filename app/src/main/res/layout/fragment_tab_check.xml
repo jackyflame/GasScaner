@@ -135,6 +135,13 @@
                     android:layout_toEndOf="@+id/txv_lable_idnum"
                     android:text="@{viewModel.idInfor.num}" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/ic_check_unregiter" />
+
             </RelativeLayout>
 
             <TextView
@@ -202,8 +209,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/padding_m"
-                        android:paddingRight="@dimen/padding_m"
                         android:drawablePadding="@dimen/padding_s"
                         android:text="川A123456"/>
 
@@ -219,8 +224,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/padding_m"
-                        android:paddingRight="@dimen/padding_m"
                         android:drawablePadding="@dimen/padding_s"
                         android:text="51055668899545"/>
 

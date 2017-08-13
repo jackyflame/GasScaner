@@ -18,6 +18,11 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <style name="info_row2" parent="info_row">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
     <style name="lab_title_blue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
