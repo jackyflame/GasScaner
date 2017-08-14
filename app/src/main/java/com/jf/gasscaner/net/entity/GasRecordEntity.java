@@ -40,7 +40,7 @@ public class GasRecordEntity extends BaseNetEntity {
     private String month;
     private String day;
     private String address;
-    private String num;
+    private String idNum;
     private String headerImg;
 
     public String getId() {
@@ -210,12 +210,12 @@ public class GasRecordEntity extends BaseNetEntity {
         this.address = address;
     }
 
-    public String getNum() {
-        return num;
+    public String getIdNum() {
+        return idNum;
     }
 
-    public void setNum(String num) {
-        this.num = num;
+    public void setIdNum(String idNum) {
+        this.idNum = idNum;
     }
 
     public String getHeaderImg() {
@@ -228,7 +228,7 @@ public class GasRecordEntity extends BaseNetEntity {
 
     public void setIdInfo(IDInfor idInfo){
         setName(idInfo.getName());
-        setNum(idInfo.getNum());
+        setIdNum(idInfo.getNum());
         setSex(idInfo.getSex());
         setNation(idInfo.getNation());
         setAddress(idInfo.getAddress());
@@ -270,5 +270,13 @@ public class GasRecordEntity extends BaseNetEntity {
 
     public void setPlateOtherNum(String plateOtherNum) {
         this.plateOtherNum = plateOtherNum;
+    }
+
+    public String getBirthday(){
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(getYear());
+        stringBuffer.append("/").append(getMonth());
+        stringBuffer.append("/").append(getDay());
+        return stringBuffer.toString();
     }
 }

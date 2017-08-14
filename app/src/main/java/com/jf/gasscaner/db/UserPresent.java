@@ -64,34 +64,25 @@ public class UserPresent extends BasePresent {
         return user.getId();
     }
 
-    public void registerOrLogin(String username, String password,ReqCallback<UserEntity> callback){
+    public void registerOrLogin(String username, String password,ReqCallback<String> callback){
         userWorker.registerOrLogin(username,password,callback);
     }
 
-    public void modifyUserInfo(String nickname, String mobile,ReqCallback<UserEntity> callback){
+    public void uploadPhoto(String filePath,ReqCallback<String> callback){
         String nowUserId = getNowUserId();
         if(StringUtil.isEmpty(nowUserId)){
             callback.onReqError(new HttpEvent(ErrorType.ERROR_INVALID_USER,"用户未登录"));
         }else{
-            userWorker.modifyUserInfo(nickname,mobile,nowUserId,callback);
+            userWorker.uploadPhoto(filePath,callback);
         }
     }
 
-    public void uploadUserPhoto(String filePath,ReqCallback<ImageEntity> callback){
+    public void uploadPhoto(File file, ReqCallback<String> callback){
         String nowUserId = getNowUserId();
         if(StringUtil.isEmpty(nowUserId)){
             callback.onReqError(new HttpEvent(ErrorType.ERROR_INVALID_USER,"用户未登录"));
         }else{
-            userWorker.uploadUserPhoto(filePath,nowUserId,callback);
-        }
-    }
-
-    public void uploadUserPhoto(File file, ReqCallback<ImageEntity> callback){
-        String nowUserId = getNowUserId();
-        if(StringUtil.isEmpty(nowUserId)){
-            callback.onReqError(new HttpEvent(ErrorType.ERROR_INVALID_USER,"用户未登录"));
-        }else{
-            userWorker.uploadUserPhoto(file,nowUserId,callback);
+            userWorker.uploadPhoto(file,callback);
         }
     }
 }
