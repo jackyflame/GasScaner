@@ -8,6 +8,8 @@ public class RespEntity<T> extends RespBaseEntity {
     private String jsonStr;
     @JSONField(name = "obj")
     private T rstdata;
+    @JSONField(name = "code")
+    private int code;
 
     public String getJsonStr() {
         return jsonStr;
@@ -23,5 +25,13 @@ public class RespEntity<T> extends RespBaseEntity {
 
     public void setRstdata(T rstdata) {
         this.rstdata = rstdata;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 }
