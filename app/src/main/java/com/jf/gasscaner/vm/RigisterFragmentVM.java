@@ -387,7 +387,9 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                 if(requestTime <= 0){
                     fragment.dismissProgressDialog();
                 }
-                ViewUtils.Toast(activity,"查询失败，请重新扫描身份证查询");
+                if(httpEvent.getCode() != ErrorType.ERROR_CHECK_BLACKLIST && httpEvent.getCode() != ErrorType.ERROR_CHECK_UNREGISTER){
+                    ViewUtils.Toast(activity,"查询失败，请重新扫描身份证查询");
+                }
             }
         });
     }
