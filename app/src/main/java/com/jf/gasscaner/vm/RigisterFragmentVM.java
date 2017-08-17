@@ -316,6 +316,23 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
         setIdInfor(idInfor);
 
         //上传身份证头像
+        uploadIdHeader();
+
+        //查询数据库登记记录
+        refreshRegisterInfo();
+    }
+
+    public void refreshCardInfo(){
+        gasRecordEntity.setIdInfo(idInfor);
+        gasRecordEntity.setCardNum("T1234");
+        setGasRecordEntity(gasRecordEntity);
+    }
+
+    public void uploadIdHeader(){
+        if(idInfor == null){
+            ViewUtils.Toast(activity,"请重新扫描身份证");
+            return;
+        }
         boolean isSuccess = BitmapUtils.writeBmpToSDCard(idInfor.getBmps(),FileUtil.PROJECT_IMAGE_HEADER_CACHE,100);
         if(isSuccess){
             mPrensent.uploadPhoto(FileUtil.PROJECT_IMAGE_HEADER_CACHE, new ReqCallback<String>() {
@@ -341,8 +358,13 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                 }
             });
         }
+    }
 
-        //查询数据库登记记录
+    public void refreshRegisterInfo(){
+        if(idInfor == null){
+            ViewUtils.Toast(activity,"请重新扫描身份证");
+            return;
+        }
         mPrensent.verify(idInfor, new ReqCallback<String>() {
             @Override
             public void onReqStart() {
@@ -366,11 +388,5 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                 }
             }
         });
-    }
-
-    public void refreshCardInfo(){
-        gasRecordEntity.setIdInfo(idInfor);
-        gasRecordEntity.setCardNum("T1234");
-        setGasRecordEntity(gasRecordEntity);
     }
 }
