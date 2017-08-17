@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.haozi.baselibrary.event.HttpEvent;
 import com.haozi.baselibrary.net.config.ErrorType;
 import com.haozi.baselibrary.net.retrofit.ReqCallback;
+import com.haozi.baselibrary.utils.BitmapUtils;
+import com.haozi.baselibrary.utils.FileUtil;
 import com.haozi.baselibrary.utils.StringUtil;
 import com.haozi.baselibrary.utils.SystemUtil;
 import com.haozi.baselibrary.utils.ViewUtils;
@@ -51,6 +53,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
 
     private IDInfor idInfor;
     private GasRecordEntity gasRecordEntity;
+    private int requestTime = 0;
 
     public RigisterFragmentVM(RigisterFragment fragment) {
         super(new UserPresent());
@@ -312,23 +315,55 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
 
         setIdInfor(idInfor);
 
-        //
+        //上传身份证头像
+        boolean isSuccess = BitmapUtils.writeBmpToSDCard(idInfor.getBmps(),FileUtil.PROJECT_IMAGE_HEADER_CACHE,100);
+        if(isSuccess){
+            mPrensent.uploadPhoto(FileUtil.PROJECT_IMAGE_HEADER_CACHE, new ReqCallback<String>() {
+                @Override
+                public void onReqStart() {
+                    requestTime++;
+                    fragment.showProgressDialog();
+                }
+                @Override
+                public void onNetResp(String response) {
+                    requestTime--;
+                    if(requestTime <= 0){
+                        fragment.dismissProgressDialog();
+                    }
+                    gasRecordEntity.setHeaderImg(response);
+                }
+                @Override
+                public void onReqError(HttpEvent httpEvent) {
+                    requestTime--;
+                    if(requestTime <= 0){
+                        fragment.dismissProgressDialog();
+                    }
+                }
+            });
+        }
 
+        //查询数据库登记记录
         mPrensent.verify(idInfor, new ReqCallback<String>() {
             @Override
             public void onReqStart() {
+                requestTime++;
                 fragment.showProgressDialog();
             }
             @Override
             public void onNetResp(String response) {
-                fragment.dismissProgressDialog();
+                requestTime--;
+                if(requestTime <= 0){
+                    fragment.dismissProgressDialog();
+                }
                 //刷新加油信息
                 refreshCardInfo();
             }
             @Override
             public void onReqError(HttpEvent httpEvent) {
-                fragment.dismissProgressDialog();
-                //ViewUtils.Toast(fragment.getContext(),"查询失败");
+                requestTime--;
+                if(requestTime <= 0){
+                    fragment.dismissProgressDialog();
+                }
             }
         });
     }
