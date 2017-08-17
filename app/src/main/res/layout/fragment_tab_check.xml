@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.jf.gasscaner.vm.CheckFragmentVM" />
@@ -140,7 +141,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:src="@mipmap/ic_check_unregiter" />
+                    android:visibility="@{viewModel.mark>0?View.VISIBLE:View.INVISIBLE}"
+                    app:imageResource="@{viewModel.mark}" />
 
             </RelativeLayout>
 
@@ -244,6 +246,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/padding_l"
                 android:background="@mipmap/bg_trans_diver"/>
+
+            <Button
+                android:id="@+id/btn_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="测试"/>
 
         </LinearLayout>
 

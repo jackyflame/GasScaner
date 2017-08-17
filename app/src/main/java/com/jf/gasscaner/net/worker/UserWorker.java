@@ -1,5 +1,6 @@
 package com.jf.gasscaner.net.worker;
 
+import com.cvr.device.IDCardInfo;
 import com.haozi.baselibrary.net.retrofit.BaseWorker;
 import com.haozi.baselibrary.net.retrofit.ReqCallback;
 import com.haozi.baselibrary.net.retrofit.RetrofitHelper;
@@ -7,6 +8,7 @@ import com.jf.gasscaner.net.entity.GasRecordEntity;
 import com.jf.gasscaner.net.entity.ImageEntity;
 import com.jf.gasscaner.net.entity.UserEntity;
 import com.jf.gasscaner.net.service.UserService;
+import com.speedata.libid2.IDInfor;
 
 import java.io.File;
 import java.util.List;
@@ -59,6 +61,14 @@ public class UserWorker extends BaseWorker {
                 recordEntity.getAddress(),recordEntity.getCarType(),recordEntity.getCardNum(),recordEntity.getPlateType(),recordEntity.getPlateNum(),recordEntity.getGasType(),
                 recordEntity.getGasMountStr(),recordEntity.getGasStation(),recordEntity.getOporator(),recordEntity.getHeaderImg(),recordEntity.getImage(),
                 callback);
+    }
+
+    /**
+     * 查询
+     * */
+    public void verify(IDInfor idInfor, ReqCallback<String> callback){
+        String birthday = idInfor.getYear()+"年"+idInfor.getMonth()+"月"+idInfor.getDay()+"日";
+        verify(idInfor.getName(),idInfor.getNum(),idInfor.getSex(),birthday,idInfor.getNation(),idInfor.getAddress(),callback);
     }
 
     /**

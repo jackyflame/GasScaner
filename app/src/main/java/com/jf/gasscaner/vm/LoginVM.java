@@ -42,7 +42,7 @@ public class LoginVM extends BaseVM {
      * 确定按钮click
      * */
     public void onConfirmClick(View view){
-        String userName = loginActivity.getUserName();
+        final String userName = loginActivity.getUserName();
         if(StringUtil.isEmpty(userName)){
             loginActivity.showToast("请输入账号");
             return;
@@ -59,10 +59,15 @@ public class LoginVM extends BaseVM {
             }
             @Override
             public void onNetResp(UserEntity response) {
-                UserPresent.getInstance().saveUser(response);
                 loginActivity.hideProgressDialog();
-                loginActivity.showToast("登录成功");
-                loginActivity.startActivity(new Intent(loginActivity, MainActivity.class));
+                if(response != null){
+                    UserPresent.getInstance().saveUser(response);
+                    loginActivity.showToast("登录成功");
+                    loginActivity.startActivity(new Intent(loginActivity, MainActivity.class));
+                    loginActivity.finish();
+                }else{
+                    loginActivity.showToast("登录失败");
+                }
             }
 
             @Override

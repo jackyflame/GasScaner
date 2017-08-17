@@ -10,6 +10,7 @@ import com.haozi.baselibrary.net.retrofit.ReqCallback;
 import com.haozi.baselibrary.utils.StringUtil;
 import com.jf.gasscaner.net.entity.UserEntity;
 import com.jf.gasscaner.net.worker.UserWorker;
+import com.speedata.libid2.IDInfor;
 
 import java.io.File;
 
@@ -64,8 +65,26 @@ public class UserPresent extends BasePresent {
         return user.getId();
     }
 
-    public void login(String username, String password,ReqCallback<UserEntity> callback){
-        userWorker.login(username,password,callback);
+    public void login(final String username, String password, final ReqCallback<UserEntity> callback){
+        userWorker.login(username, password, new ReqCallback<UserEntity>() {
+            @Override
+            public void onReqStart() {
+                callback.onReqStart();
+            }
+
+            @Override
+            public void onNetResp(UserEntity response) {
+                if(response != null){
+                    response.setUserName(username);
+                }
+                callback.onNetResp(response);
+            }
+
+            @Override
+            public void onReqError(HttpEvent httpEvent) {
+                callback.onReqError(httpEvent);
+            }
+        });
     }
 
     public void uploadPhoto(String filePath,ReqCallback<String> callback){
@@ -84,5 +103,9 @@ public class UserPresent extends BasePresent {
         }else{
             userWorker.uploadPhoto(file,callback);
         }
+    }
+
+    public void verify(IDInfor idInfor, ReqCallback<String> callback){
+        userWorker.verify(idInfor,callback);
     }
 }

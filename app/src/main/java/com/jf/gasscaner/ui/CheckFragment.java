@@ -19,12 +19,17 @@ public class CheckFragment extends BaseDBFragment<FragmentTabCheckBinding,CheckF
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bindLayout(inflater, R.layout.fragment_tab_check,container,new CheckFragmentVM(getActivity()));
+        bindLayout(inflater, R.layout.fragment_tab_check,container,new CheckFragmentVM(this));
         initView();
         return mRootView;
     }
 
     private void initView() {
-
+        mBinding.btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.scanReslt();
+            }
+        });
     }
 }
