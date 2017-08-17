@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import com.haozi.baselibrary.event.HttpEvent;
 import com.haozi.baselibrary.net.config.ErrorType;
 import com.haozi.baselibrary.net.retrofit.ReqCallback;
+import com.haozi.baselibrary.utils.StringUtil;
 import com.haozi.baselibrary.utils.ViewUtils;
 import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
@@ -42,6 +43,7 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
     public void setIdInfor(IDInfor idInfor) {
         this.idInfor = idInfor;
         notifyPropertyChanged(BR.idInfor);
+        notifyPropertyChanged(BR.birthday);
     }
 
     public void scanReslt(){
@@ -57,7 +59,7 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
         Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
         idInfor.setBmps(bmp);
 
-        notifyPropertyChanged(BR.idInfor);
+        setIdInfor(idInfor);
 
         mPrensent.verify(idInfor, new ReqCallback<String>() {
             @Override
@@ -91,5 +93,13 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
     public void setMark(int mark) {
         this.mark = mark;
         notifyPropertyChanged(BR.mark);
+    }
+
+    @Bindable
+    public String getBirthday(){
+        if(idInfor == null || StringUtil.isEmpty(idInfor.getYear())){
+            return "";
+        }
+        return activity.getResources().getString(R.string.id_birthday_format,idInfor.getYear(),idInfor.getMonth(),idInfor.getDay());
     }
 }

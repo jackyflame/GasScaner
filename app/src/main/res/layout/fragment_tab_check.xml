@@ -95,7 +95,7 @@
                     style="@style/lab_value_black"
                     android:layout_alignBaseline="@+id/txv_lable_born"
                     android:layout_toEndOf="@+id/txv_lable_born"
-                    android:text="@{@string/id_birthday_format(viewModel.idInfor.year,viewModel.idInfor.month,viewModel.idInfor.day)}" />
+                    android:text="@{viewModel.birthday}" />
 
                 <!--住址-->
                 <LinearLayout
