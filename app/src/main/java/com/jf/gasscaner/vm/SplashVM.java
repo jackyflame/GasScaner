@@ -22,7 +22,7 @@ public class SplashVM extends BaseVM<UserPresent>{
 
     public boolean isLogin() {
         UserEntity userEntity = mPrensent.getUser();
-        if(userEntity == null || StringUtil.isEmpty(userEntity.getUserName()) || StringUtil.isEmpty(userEntity.getPasswd())){
+        if(userEntity == null || StringUtil.isEmpty(userEntity.getUserName()) || StringUtil.isEmpty(userEntity.getMm())){
             return false;
         }
         return true;
@@ -30,7 +30,7 @@ public class SplashVM extends BaseVM<UserPresent>{
 
     public void requestLoginToken(ReqCallback<UserEntity> callback) {
         UserEntity userEntity = mPrensent.getUser();
-        mPrensent.registerOrLogin(userEntity.getUserName(),userEntity.getPasswd(),callback);
+        mPrensent.login(userEntity.getId(),userEntity.getMm(),callback);
     }
 
     public void cleanUserData() {

@@ -8,9 +8,9 @@ import com.haozi.baselibrary.event.HttpEvent;
 import com.haozi.baselibrary.net.config.ErrorType;
 import com.haozi.baselibrary.net.retrofit.ReqCallback;
 import com.haozi.baselibrary.utils.StringUtil;
-import com.jf.gasscaner.net.entity.ImageEntity;
 import com.jf.gasscaner.net.entity.UserEntity;
 import com.jf.gasscaner.net.worker.UserWorker;
+
 import java.io.File;
 
 /**
@@ -64,8 +64,8 @@ public class UserPresent extends BasePresent {
         return user.getId();
     }
 
-    public void registerOrLogin(String username, String password,ReqCallback<String> callback){
-        userWorker.registerOrLogin(username,password,callback);
+    public void login(String username, String password,ReqCallback<UserEntity> callback){
+        userWorker.login(username,password,callback);
     }
 
     public void uploadPhoto(String filePath,ReqCallback<String> callback){

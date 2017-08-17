@@ -2,6 +2,8 @@ package com.jf.gasscaner.net.entity;
 
 import com.haozi.baselibrary.net.entity.BaseNetEntity;
 
+import java.util.Date;
+
 /**
  * Created by Android Studio.
  * ProjectName: ChongQingHaoLi
@@ -25,17 +27,20 @@ public class UserEntity extends BaseNetEntity{
     /**更新人登录名称*/
     private String updateBy;
     /**更新日期*/
-    private long updateDate;
-    /**用户名*/
-    private String userName;
-    /**昵称*/
-    private String nickName;
-    /**真实姓名*/
-    private String realName;
-    /**手机号码*/
-    private String mobile;
+    private java.util.Date updateDate;
+    /**姓名*/
+    private String xm;
+    /**身份证号*/
+    private String sfzh;
+    /**联系电话*/
+    private String lxdh;
     /**密码*/
-    private String passwd;
+    private String mm;
+    /**加油站*/
+    private String jyz;
+
+    /**登录名*/
+    private String userName;
 
     public String getId() {
         return id;
@@ -85,12 +90,52 @@ public class UserEntity extends BaseNetEntity{
         this.updateBy = updateBy;
     }
 
-    public long getUpdateDate() {
+    public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(long updateDate) {
+    public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getXm() {
+        return xm;
+    }
+
+    public void setXm(String xm) {
+        this.xm = xm;
+    }
+
+    public String getSfzh() {
+        return sfzh;
+    }
+
+    public void setSfzh(String sfzh) {
+        this.sfzh = sfzh;
+    }
+
+    public String getLxdh() {
+        return lxdh;
+    }
+
+    public void setLxdh(String lxdh) {
+        this.lxdh = lxdh;
+    }
+
+    public String getMm() {
+        return mm;
+    }
+
+    public void setMm(String mm) {
+        this.mm = mm;
+    }
+
+    public String getJyz() {
+        return jyz;
+    }
+
+    public void setJyz(String jyz) {
+        this.jyz = jyz;
     }
 
     public String getUserName() {
@@ -100,36 +145,7 @@ public class UserEntity extends BaseNetEntity{
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getPasswd() {
-        return passwd;
-    }
-
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
-    }
 }
+
+
+

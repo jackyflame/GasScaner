@@ -44,7 +44,11 @@ public abstract class RequestCallbackSubscriber<T> extends ResourceSubscriber<Re
                 handleError(new HttpEvent(ErrorType.ERROR_RESPONSE_NULL, "系统繁忙,请重试."));
             } else {
                 if (respEntity.isSuccess()) {
-                    onSuccess(respEntity.getRstdata());
+                    if(respEntity.getCode() > 0 && respEntity.getCode() != 200){
+                        handleError(new HttpEvent(respEntity.getCode(), respEntity.getMsg()));
+                    }else{
+                        onSuccess(respEntity.getRstdata());
+                    }
                 } else {
                     handleError(new HttpEvent(ErrorType.ERROR_SERVER, respEntity.getMsg()));
                 }

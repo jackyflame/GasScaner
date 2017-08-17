@@ -33,7 +33,7 @@ public class UserWorker extends BaseWorker {
         userService = RetrofitHelper.getInstance().callAPI(UserService.class);
     }
 
-    public void registerOrLogin(String username, String password,ReqCallback<String> callback){
+    public void login(String username, String password,ReqCallback<UserEntity> callback){
         defaultCall(userService.login(username,password),callback);
     }
 

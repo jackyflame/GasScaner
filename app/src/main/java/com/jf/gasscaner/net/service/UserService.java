@@ -3,6 +3,8 @@ package com.jf.gasscaner.net.service;
 import com.haozi.baselibrary.net.entity.RespEntity;
 import com.jf.gasscaner.net.entity.ImageEntity;
 import com.jf.gasscaner.net.entity.UserEntity;
+import com.jf.greendaolib.User;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.Response;
@@ -29,7 +31,7 @@ public interface UserService {
      * @return 603：用户不存在 604：密码错误 200：登录成功
      * */
     @GET("fuelingRecordController.do?login")
-    Observable<Response<RespEntity<String>>> login(@Query(value = "username") String username, @Query(value = "password") String password);
+    Observable<Response<RespEntity<UserEntity>>> login(@Query(value = "username") String username, @Query(value = "password") String password);
 
     /**
      * 上传头像

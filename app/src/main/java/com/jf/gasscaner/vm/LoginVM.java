@@ -52,7 +52,7 @@ public class LoginVM extends BaseVM {
             loginActivity.showToast("请输入密码");
             return;
         }
-        UserPresent.getInstance().registerOrLogin(userName, password, new BaseReqCallback<UserEntity>() {
+        UserPresent.getInstance().login(userName, password, new BaseReqCallback<UserEntity>() {
             @Override
             public void onReqStart() {
                 loginActivity.showProgressDialog();
@@ -69,7 +69,11 @@ public class LoginVM extends BaseVM {
             public void onReqError(HttpEvent httpEvent) {
                 super.onReqError(httpEvent);
                 loginActivity.hideProgressDialog();
-                loginActivity.showToast("登录失败");
+                String msg = "登录失败";
+                if(!StringUtil.isEmpty(httpEvent.getMessage())){
+                    msg = msg+","+httpEvent.getMessage();
+                }
+                loginActivity.showToast(msg);
             }
         });
     }
