@@ -64,14 +64,6 @@ public class UserWorker extends BaseWorker {
     }
 
     /**
-     * 查询
-     * */
-    public void verify(IDInfor idInfor, ReqCallback<String> callback){
-        String birthday = idInfor.getYear()+"年"+idInfor.getMonth()+"月"+idInfor.getDay()+"日";
-        verify(idInfor.getName(),idInfor.getNum(),idInfor.getSex(),birthday,idInfor.getNation(),idInfor.getAddress(),callback);
-    }
-
-    /**
      * 保存加油记录
      * */
     public void saveGasRecord(String name, String idcard,String sex, String birthday, String nation,
@@ -80,6 +72,14 @@ public class UserWorker extends BaseWorker {
                               ReqCallback<String> callback){
         defaultCall(userService.saveGasRecord(name,idcard,sex,birthday,nation,address,carType,cardNo,carCardType,carNo,fuelType,
                 num,station,fuelMan,idcardPhotoId,scenePhotoId),callback);
+    }
+
+    /**
+     * 查询
+     * */
+    public void verify(IDInfor idInfor, ReqCallback<String> callback){
+        String birthday = idInfor.getYear()+"年"+idInfor.getMonth()+"月"+idInfor.getDay()+"日";
+        verify(idInfor.getName(),idInfor.getNum(),idInfor.getSex(),birthday,idInfor.getNation(),idInfor.getAddress(),callback);
     }
 
     public void verify(String name,String idcard, String sex, String birthday,

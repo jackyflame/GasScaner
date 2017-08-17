@@ -43,6 +43,12 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
 
     private void initView() {
         img_takepic = mBinding.imgTakepic;
+        mBinding.btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.scanResult();
+            }
+        });
     }
 
     @Override
@@ -57,6 +63,7 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
                         //viewModel.uploadHeaderImage(pic);
                         Bitmap bitmap = BitmapUtils.getScaleBitmap(pic.getPath(),800,600);
                         img_takepic.setImageBitmap(bitmap);
+                        viewModel.uploadImage(pic);
                         break;
                     case INPUT_CONTENT_ADDPIC:
                         //得到图片
@@ -64,11 +71,16 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
                         //viewModel.uploadHeaderImage(pic);
                         bitmap = BitmapFactory.decodeFile(pic.getPath());
                         img_takepic.setImageBitmap(bitmap);
+                        viewModel.uploadImage(pic);
                         break;
                 }
             }else{
                 return;
             }
         }
+    }
+
+    public void cleanPic(){
+        img_takepic.setImageResource(R.mipmap.ic_takephoto);
     }
 }

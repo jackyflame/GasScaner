@@ -88,6 +88,7 @@ public class BaseDBFragment<T extends ViewDataBinding,X extends BaseVM> extends 
     public void showProgressDialog(){
         if(mProgressDialog == null){
             mProgressDialog = new ProgressDialog(getActivity());
+            mProgressDialog.setCancelable(false);
         }
         if(mProgressDialog.isShowing() == false){
             mProgressDialog.show();

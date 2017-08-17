@@ -30,7 +30,7 @@ public class SplashVM extends BaseVM<UserPresent>{
 
     public void requestLoginToken(ReqCallback<UserEntity> callback) {
         UserEntity userEntity = mPrensent.getUser();
-        mPrensent.login(userEntity.getId(),userEntity.getMm(),callback);
+        mPrensent.login(userEntity.getUserName(),userEntity.getMm(),callback);
     }
 
     public void cleanUserData() {

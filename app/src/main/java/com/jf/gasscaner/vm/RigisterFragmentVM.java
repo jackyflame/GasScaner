@@ -15,21 +15,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.haozi.baselibrary.event.HttpEvent;
+import com.haozi.baselibrary.net.config.ErrorType;
+import com.haozi.baselibrary.net.retrofit.ReqCallback;
 import com.haozi.baselibrary.utils.StringUtil;
 import com.haozi.baselibrary.utils.SystemUtil;
 import com.haozi.baselibrary.utils.ViewUtils;
 import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.vm.BaseVM;
+import com.jf.gasscaner.db.UserPresent;
 import com.jf.gasscaner.net.entity.GasRecordEntity;
 import com.jf.gasscaner.ui.RigisterFragment;
 import com.speedata.libid2.IDInfor;
+
+import java.io.File;
 
 /**
  * Created by admin on 2017/8/9.
  */
 
-public class RigisterFragmentVM extends BaseVM implements TextView.OnEditorActionListener {
+public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.OnEditorActionListener {
 
     private Activity activity;
     private RigisterFragment fragment;
@@ -47,30 +53,9 @@ public class RigisterFragmentVM extends BaseVM implements TextView.OnEditorActio
     private GasRecordEntity gasRecordEntity;
 
     public RigisterFragmentVM(RigisterFragment fragment) {
+        super(new UserPresent());
         this.activity = fragment.getActivity();
         this.fragment = fragment;
-
-        idInfor = new IDInfor();
-        idInfor.setName("张三");
-        idInfor.setNum("510622198805052211");
-        idInfor.setSex("男");
-        idInfor.setNation("汉族");
-        idInfor.setAddress("四川省成都市成华区将军路223号");
-        idInfor.setYear("1988");
-        idInfor.setMonth("05");
-        idInfor.setDay("05");
-        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
-        idInfor.setBmps(bmp);
-        //tvIDInfor.setText("姓名:" + idInfor1.getName() + "\n身份证号：" + idInfor1.getNum()
-        //        + "\n性别：" + idInfor1.getSex()
-        //        + "\n民族：" + idInfor1.getNation() + "\n住址:"
-        //        + idInfor1.getAddress() + "\n出生：" + idInfor1.getYear() + "年" + idInfor1
-        //        .getMonth() + "月" + idInfor1.getDay() + "日" + "\n有效期限：" + idInfor1
-        //        .getDeadLine());
-
-        gasRecordEntity = new GasRecordEntity();
-        gasRecordEntity.setIdInfo(idInfor);
-        gasRecordEntity.setCardNum("T1234");
     }
 
     public void onPlateFirstClick(View view){
@@ -176,6 +161,31 @@ public class RigisterFragmentVM extends BaseVM implements TextView.OnEditorActio
             Toast.makeText(activity,"请填写加油量",Toast.LENGTH_SHORT).show();
             return;
         }
+        mPrensent.saveGasRecord(gasRecordEntity, new ReqCallback<String>() {
+            @Override
+            public void onReqStart() {
+                fragment.showProgressDialog();
+            }
+
+            @Override
+            public void onNetResp(String response) {
+                fragment.dismissProgressDialog();
+                ViewUtils.showMsgDialog(activity,"登记成功");
+                //清空记录
+                setIdInfor(null);
+                setGasRecordEntity(null);
+            }
+
+            @Override
+            public void onReqError(HttpEvent httpEvent) {
+                fragment.dismissProgressDialog();
+                String msg = "登记失败";
+                if(!StringUtil.isEmpty(httpEvent.getMessage())){
+                    msg = msg+","+httpEvent.getMessage();
+                }
+                ViewUtils.Toast(activity,msg);
+            }
+        });
     }
 
     public void onImageTakeClick(View view){
@@ -190,7 +200,21 @@ public class RigisterFragmentVM extends BaseVM implements TextView.OnEditorActio
 
     public void setIdInfor(IDInfor idInfor) {
         this.idInfor = idInfor;
+        //刷新加油信息
+        GasRecordEntity newRecord = new GasRecordEntity();
+        newRecord.setIdInfo(idInfor);
+        setGasRecordEntity(newRecord);
+        //刷新页面
         notifyPropertyChanged(BR.idInfor);
+        notifyPropertyChanged(BR.birthday);
+    }
+
+    @Bindable
+    public String getBirthday(){
+        if(idInfor == null || StringUtil.isEmpty(idInfor.getYear())){
+            return "";
+        }
+        return activity.getResources().getString(R.string.id_birthday_format,idInfor.getYear(),idInfor.getMonth(),idInfor.getDay());
     }
 
     @Bindable
@@ -249,5 +273,69 @@ public class RigisterFragmentVM extends BaseVM implements TextView.OnEditorActio
             fragment.hideKeyboard();
         }
         return false;
+    }
+
+    public void uploadImage(File pic) {
+        mPrensent.uploadPhoto(pic, new ReqCallback<String>() {
+            @Override
+            public void onReqStart() {
+                fragment.showProgressDialog();
+            }
+            @Override
+            public void onNetResp(String response) {
+                fragment.dismissProgressDialog();
+                if(gasRecordEntity != null){
+                    gasRecordEntity.setImage(response);
+                }
+            }
+            @Override
+            public void onReqError(HttpEvent httpEvent) {
+                fragment.dismissProgressDialog();
+                ViewUtils.Toast(activity,"上传失败："+httpEvent.getMessage());
+                fragment.cleanPic();
+            }
+        });
+    }
+
+    public void scanResult() {
+        idInfor = new IDInfor();
+        idInfor.setName("张三");
+        idInfor.setNum("510622198805052211");
+        idInfor.setSex("男");
+        idInfor.setNation("汉族");
+        idInfor.setAddress("四川省成都市成华区将军路223号");
+        idInfor.setYear("1988");
+        idInfor.setMonth("05");
+        idInfor.setDay("05");
+        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
+        idInfor.setBmps(bmp);
+
+        setIdInfor(idInfor);
+
+        //
+
+        mPrensent.verify(idInfor, new ReqCallback<String>() {
+            @Override
+            public void onReqStart() {
+                fragment.showProgressDialog();
+            }
+            @Override
+            public void onNetResp(String response) {
+                fragment.dismissProgressDialog();
+                //刷新加油信息
+                refreshCardInfo();
+            }
+            @Override
+            public void onReqError(HttpEvent httpEvent) {
+                fragment.dismissProgressDialog();
+                //ViewUtils.Toast(fragment.getContext(),"查询失败");
+            }
+        });
+    }
+
+    public void refreshCardInfo(){
+        gasRecordEntity.setIdInfo(idInfor);
+        gasRecordEntity.setCardNum("T1234");
+        setGasRecordEntity(gasRecordEntity);
     }
 }

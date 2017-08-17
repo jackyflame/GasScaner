@@ -8,6 +8,7 @@ import com.haozi.baselibrary.event.HttpEvent;
 import com.haozi.baselibrary.net.config.ErrorType;
 import com.haozi.baselibrary.net.retrofit.ReqCallback;
 import com.haozi.baselibrary.utils.StringUtil;
+import com.jf.gasscaner.net.entity.GasRecordEntity;
 import com.jf.gasscaner.net.entity.UserEntity;
 import com.jf.gasscaner.net.worker.UserWorker;
 import com.speedata.libid2.IDInfor;
@@ -107,5 +108,9 @@ public class UserPresent extends BasePresent {
 
     public void verify(IDInfor idInfor, ReqCallback<String> callback){
         userWorker.verify(idInfor,callback);
+    }
+
+    public void saveGasRecord(GasRecordEntity gasRecordEntity, ReqCallback<String> callback){
+        userWorker.saveGasRecord(gasRecordEntity,callback);
     }
 }
