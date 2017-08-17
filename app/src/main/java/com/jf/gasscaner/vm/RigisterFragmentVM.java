@@ -355,6 +355,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                     if(requestTime <= 0){
                         fragment.dismissProgressDialog();
                     }
+                    ViewUtils.Toast(activity,"上传身份证头像失败，请重新扫描身份证上传");
                 }
             });
         }
@@ -386,6 +387,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                 if(requestTime <= 0){
                     fragment.dismissProgressDialog();
                 }
+                ViewUtils.Toast(activity,"查询失败，请重新扫描身份证查询");
             }
         });
     }
