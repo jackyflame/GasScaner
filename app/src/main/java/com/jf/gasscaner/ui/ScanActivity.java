@@ -84,4 +84,15 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
     }
 
     protected  abstract void handleIDInfo(IDInfor idInfor);
+
+    @Override
+    protected void onDestroy() {
+        try {
+            if (iid2Service != null)
+                iid2Service.releaseDev();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        super.onDestroy();
+    }
 }
