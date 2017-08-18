@@ -50,7 +50,7 @@ public class UserWorker extends BaseWorker {
     public void uploadPhoto(File file,ReqCallback<String> callback){
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"),file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("uploadFile",file.getName(),requestBody);
-        defaultCall(userService.uploadPhoto(body,1),callback);
+        defaultCall(userService.uploadPhoto(body),callback);
     }
 
     /**
