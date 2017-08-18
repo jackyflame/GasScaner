@@ -100,25 +100,25 @@
             android:layout_height="45dp"
             android:layout_marginLeft="@dimen/padding_xxl"
             android:layout_marginRight="@dimen/padding_xxl"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/bg_corner_red_5"
             android:textSize="@dimen/text_l"
             android:textColor="@color/white"
             android:onClick="@{viewModel.onLogoutClick}"
             android:text="@string/action_sign_out"/>
 
-        <Button
+        <ToggleButton
+            android:id="@+id/btn_get"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="@dimen/padding_xxl"
             android:layout_marginRight="@dimen/padding_xxl"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_corner_blue_gray_5_selector"
-            android:textSize="@dimen/text_l"
+            android:background="@drawable/bg_corner_blue_5"
             android:textColor="@color/white"
-            android:visibility="gone"
-            android:onClick="@{viewModel.onLogoutClick}"
-            android:text="自动扫描"/>
+            android:text="读取身份证"
+            android:textOff="读卡"
+            android:textOn="停止"/>
 
     </LinearLayout>
 </layout>

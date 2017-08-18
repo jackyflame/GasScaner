@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.BaseDBFragment;
@@ -25,7 +27,18 @@ public class UserFragment extends BaseDBFragment<FragmentTabUserBinding,UserFrag
     }
 
     private void initView() {
+        if(getActivity() instanceof ScanActivity){
+            mBinding.btnGet.setEnabled( ((ScanActivity) getActivity()).isScanEnable());
+        }
+        mBinding.btnGet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(getActivity() instanceof ScanActivity){
+                    ((ScanActivity) getActivity()).runScan(b);
+                }
 
+            }
+        });
     }
 
 }

@@ -31,6 +31,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
     private long startTime;
     protected IID2Service iid2Service;
     protected boolean isAutoScan;
+    protected boolean isScanEnable;
     protected Handler handler;
 
     protected void initID() {
@@ -50,12 +51,12 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                isAutoScan = false;
+                                isScanEnable = false;
                             }
                         }).show();
             } else {
                 showToast("初始化成功");
-                iid2Service.getIDInfor(false,isAutoScan);
+                isScanEnable = true;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,7 +73,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                     long left_time = System.currentTimeMillis() - startTime;
                     Log.d("Reginer", "耗时：: " + left_time+"ms");
                     startTime = System.currentTimeMillis();
-                    iid2Service.getIDInfor(false,isAutoScan);
+                    iid2Service.getIDInfor(false,isAutoScan());
                     IDInfor idInfor = (IDInfor) msg.obj;
                     if (idInfor.isSuccess()) {
                         Log.d("Reginer", "read success time is: " + left_time);
@@ -98,5 +99,22 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
             e.printStackTrace();
         }
         super.onDestroy();
+    }
+
+    public boolean isAutoScan() {
+        return isAutoScan;
+    }
+
+    public void setAutoScan(boolean autoScan) {
+        isAutoScan = autoScan;
+    }
+
+    public boolean isScanEnable() {
+        return isScanEnable;
+    }
+
+    public void runScan(boolean isAutoScan){
+        setAutoScan(isAutoScan);
+        iid2Service.getIDInfor(false, isAutoScan());
     }
 }
