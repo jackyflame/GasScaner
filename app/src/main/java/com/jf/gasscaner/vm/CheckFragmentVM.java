@@ -15,7 +15,9 @@ import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.vm.BaseVM;
 import com.jf.gasscaner.db.UserPresent;
+import com.jf.gasscaner.net.entity.DicConst;
 import com.jf.gasscaner.net.entity.FuelCardEntity;
+import com.jf.gasscaner.net.entity.UserEntity;
 import com.jf.gasscaner.ui.CheckFragment;
 import com.speedata.libid2.IDInfor;
 
@@ -115,5 +117,27 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
     public void setFuelCard(FuelCardEntity fuelCard) {
         this.fuelCard = fuelCard;
         notifyPropertyChanged(BR.fuelCard);
+    }
+
+    @Bindable
+    public String getUserName(){
+        UserEntity userEntity = mPrensent.getUser();
+        if(userEntity == null || StringUtil.isEmpty(userEntity.getJyz())){
+            return "暂无";
+        }
+        return userEntity.getXm();
+    }
+
+    @Bindable
+    public String getGasSite(){
+        UserEntity userEntity = mPrensent.getUser();
+        if(userEntity == null || StringUtil.isEmpty(userEntity.getJyz())){
+            return "暂无";
+        }
+        DicConst.GasSite gasSite = DicConst.GasSite.ValueOf(userEntity.getJyz());
+        if(gasSite != null){
+            return gasSite.getName();
+        }
+        return "暂无";
     }
 }
