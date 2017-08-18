@@ -88,6 +88,6 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
 
     @Override
     public void scanCallback(IDInfor idInfor) {
-
+        viewModel.setIdInfor(idInfor);
     }
 }
