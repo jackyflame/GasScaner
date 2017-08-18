@@ -38,7 +38,7 @@ public interface UserService {
      * @param file 文件信息
      * */
     @Multipart
-    @POST("systemController.do?filedeal")
+    @POST("systemController.do?filedeal.do")
     Observable<Response<RespEntity<String>>> uploadPhoto(@Part MultipartBody.Part file, @Query(value = "upFlag") int upFlag);
 
     /**
