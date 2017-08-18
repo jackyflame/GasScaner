@@ -8,14 +8,16 @@ import android.view.ViewGroup;
 
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.BaseDBFragment;
+import com.jf.gasscaner.base.ScanCallBackIft;
 import com.jf.gasscaner.databinding.FragmentTabCheckBinding;
 import com.jf.gasscaner.vm.CheckFragmentVM;
+import com.speedata.libid2.IDInfor;
 
 /**
  * Created by admin on 2017/8/9.
  */
 
-public class CheckFragment extends BaseDBFragment<FragmentTabCheckBinding,CheckFragmentVM> {
+public class CheckFragment extends BaseDBFragment<FragmentTabCheckBinding,CheckFragmentVM> implements ScanCallBackIft {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,5 +33,10 @@ public class CheckFragment extends BaseDBFragment<FragmentTabCheckBinding,CheckF
                 viewModel.scanReslt();
             }
         });
+    }
+
+    @Override
+    public void scanCallback(IDInfor idInfor) {
+
     }
 }

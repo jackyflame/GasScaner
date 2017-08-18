@@ -39,7 +39,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                 public void callBack(IDInfor infor) {
                     Message message = new Message();
                     message.obj = infor;
-                    handler.sendMessage(message);
+                    getHandler().sendMessage(message);
                 }
             });
             if (!result) {
@@ -74,15 +74,6 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                         Log.d("Reginer", "read success time is: " + left_time);
                         PlaySoundUtils.play(1,1);
                         handleIDInfo(idInfor);
-                        //tvIDInfor.setText("姓名:" + idInfor1.getName() + "\n身份证号：" + idInfor1.getNum()
-                        //        + "\n性别：" + idInfor1.getSex()
-                        //        + "\n民族：" + idInfor1.getNation() + "\n住址:"
-                        //        + idInfor1.getAddress() + "\n出生：" + idInfor1.getYear() + "年" + idInfor1
-                        //        .getMonth() + "月" + idInfor1.getDay() + "日" + "\n有效期限：" + idInfor1
-                        //        .getDeadLine());
-                        //Bitmap bmps = idInfor1.getBmps();
-                        //imgPic.setImageBitmap(bmps);
-                        //tvMsg.setText("");
                     } else {
                         Toast.makeText(ScanActivity.this,String.format("ERROR:%s", idInfor.getErrorMsg()),Toast.LENGTH_SHORT);
                     }

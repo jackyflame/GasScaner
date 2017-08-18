@@ -3,6 +3,7 @@ package com.jf.gasscaner.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +16,18 @@ import android.widget.TextView;
 import com.haozi.baselibrary.utils.StringUtil;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.BaseDBActivity;
+import com.jf.gasscaner.base.ScanCallBackIft;
+import com.speedata.libid2.IDInfor;
 
-public class MainActivity extends BaseDBActivity implements TabHost.OnTabChangeListener {
+public class MainActivity extends ScanActivity implements TabHost.OnTabChangeListener {
 
     private FragmentTabHost mTabHost;
 
     private TabHost.TabSpec tab_check;
     private TabHost.TabSpec tab_register;
     private TabHost.TabSpec tab_user;
+
+    private Fragment nowFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,7 @@ public class MainActivity extends BaseDBActivity implements TabHost.OnTabChangeL
         getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initTabHost();
         initData();
+        initID();
     }
 
     private void initData() {}
@@ -96,6 +102,15 @@ public class MainActivity extends BaseDBActivity implements TabHost.OnTabChangeL
     public void onTabChanged(String tabId) {
         if(StringUtil.isInteger(tabId)){
             setTitle(Integer.valueOf(tabId));
+        }
+        String frgTag = mTabHost.getCurrentTabTag();
+        nowFragment = getSupportFragmentManager().findFragmentByTag(frgTag);
+    }
+
+    @Override
+    protected void handleIDInfo(IDInfor idInfor) {
+        if(nowFragment != null && nowFragment instanceof ScanCallBackIft){
+            ((ScanCallBackIft) nowFragment).scanCallback(idInfor);
         }
     }
 }

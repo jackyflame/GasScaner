@@ -15,8 +15,10 @@ import com.haozi.baselibrary.utils.BitmapUtils;
 import com.haozi.baselibrary.utils.SystemUtil;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.BaseDBFragment;
+import com.jf.gasscaner.base.ScanCallBackIft;
 import com.jf.gasscaner.databinding.FragmentTabRegisterBinding;
 import com.jf.gasscaner.vm.RigisterFragmentVM;
+import com.speedata.libid2.IDInfor;
 
 import java.io.File;
 
@@ -25,7 +27,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Created by admin on 2017/8/9.
  */
-public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,RigisterFragmentVM> {
+public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,RigisterFragmentVM> implements ScanCallBackIft {
 
     /**拍摄图片*/
     public static final int INPUT_CONTENT_TACKPIC = 1002;
@@ -82,5 +84,10 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
 
     public void cleanPic(){
         img_takepic.setImageResource(R.mipmap.ic_takephoto);
+    }
+
+    @Override
+    public void scanCallback(IDInfor idInfor) {
+
     }
 }
