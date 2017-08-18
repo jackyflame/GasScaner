@@ -27,7 +27,11 @@ import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.vm.BaseVM;
 import com.jf.gasscaner.db.UserPresent;
+import com.jf.gasscaner.net.entity.DicConst;
+import com.jf.gasscaner.net.entity.FuelCardEntity;
 import com.jf.gasscaner.net.entity.GasRecordEntity;
+import com.jf.gasscaner.net.entity.ImageEntity;
+import com.jf.gasscaner.net.entity.UserEntity;
 import com.jf.gasscaner.ui.RigisterFragment;
 import com.speedata.libid2.IDInfor;
 
@@ -48,8 +52,10 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     private String[] cartypeNameArray;
     /**车牌类型列表*/
     private String[] platetypeArray;
+    private String[] platetypeNameArray;
     /**油类型列表*/
     private String[] gastypeArray;
+    private String[] gastypeNameArray;
 
     private IDInfor idInfor;
     private GasRecordEntity gasRecordEntity;
@@ -69,9 +75,11 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                 .setItems(provinceArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position) {
-                        //保存选择字母编号
-                        gasRecordEntity.setPlateFirstNum(provinceArray[position]);
-                        notifyPropertyChanged(BR.gasRecordEntity);
+                        if(gasRecordEntity != null){
+                            //保存选择字母编号
+                            gasRecordEntity.setPlateFirstNum(provinceArray[position]);
+                            notifyPropertyChanged(BR.gasRecordEntity);
+                        }
                     }
                 })
                 .create()
@@ -97,7 +105,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                     public void onClick(DialogInterface dialogInterface, int position) {
                         //保存选择字母编号
                         String[] itemArray = cartypeArray[position].split(",");
-                        if(itemArray.length >= 2){
+                        if(itemArray.length >= 2 && gasRecordEntity != null){
                             gasRecordEntity.setCarTypeName(itemArray[0]);
                             gasRecordEntity.setCarType(itemArray[1]);
                             //散装油
@@ -119,13 +127,27 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     public void onPlateTypetClick(View view){
         if(platetypeArray == null){
             platetypeArray = activity.getResources().getStringArray(R.array.plate_type_items);
+            platetypeNameArray = new String[platetypeArray.length];
+            for (int i=0;i<platetypeArray.length;i++) {
+                String[] itemArray = platetypeArray[i].split(",");
+                if(itemArray.length > 0){
+                    platetypeNameArray[i] = itemArray[0];
+                }else{
+                    platetypeNameArray[i] = "--";
+                }
+            }
         }
         new AlertDialog.Builder(activity)
-                .setItems(platetypeArray, new DialogInterface.OnClickListener() {
+                .setItems(platetypeNameArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position) {
+                        //保存选择字母编号
+                        String[] itemArray = platetypeArray[position].split(",");
                         //刷新数据
-                        gasRecordEntity.setPlateTypeName(platetypeArray[position]);
+                        if(itemArray.length >= 2 && gasRecordEntity != null) {
+                            gasRecordEntity.setPlateTypeName(itemArray[0]);
+                            gasRecordEntity.setPlateType(itemArray[1]);
+                        }
                         notifyPropertyChanged(BR.gasRecordEntity);
                         notifyPropertyChanged(BR.plateFirstVisible);
                     }
@@ -137,13 +159,27 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     public void onGasTypetClick(View view){
         if(gastypeArray == null){
             gastypeArray = activity.getResources().getStringArray(R.array.gas_type_items);
+            gastypeNameArray = new String[gastypeArray.length];
+            for (int i=0;i<gastypeArray.length;i++) {
+                String[] itemArray = gastypeArray[i].split(",");
+                if(itemArray.length > 0){
+                    gastypeNameArray[i] = itemArray[0];
+                }else{
+                    gastypeNameArray[i] = "--";
+                }
+            }
         }
         new AlertDialog.Builder(activity)
-                .setItems(gastypeArray, new DialogInterface.OnClickListener() {
+                .setItems(gastypeNameArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position) {
+                        //保存选择字母编号
+                        String[] itemArray = gastypeArray[position].split(",");
                         //刷新数据
-                        gasRecordEntity.setGasType(gastypeArray[position]);
+                        if(itemArray.length >= 2 && gasRecordEntity != null) {
+                            gasRecordEntity.setGasTypeName(itemArray[0]);
+                            gasRecordEntity.setGasType(itemArray[1]);
+                        }
                         notifyPropertyChanged(BR.gasRecordEntity);
                     }
                 })
@@ -268,6 +304,28 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
         return true;
     }
 
+    @Bindable
+    public String getUserName(){
+        UserEntity userEntity = mPrensent.getUser();
+        if(userEntity == null || StringUtil.isEmpty(userEntity.getJyz())){
+            return "暂无";
+        }
+        return userEntity.getXm();
+    }
+
+    @Bindable
+    public String getGasSite(){
+        UserEntity userEntity = mPrensent.getUser();
+        if(userEntity == null || StringUtil.isEmpty(userEntity.getJyz())){
+            return "暂无";
+        }
+        DicConst.GasSite gasSite = DicConst.GasSite.ValueOf(userEntity.getJyz());
+        if(gasSite != null){
+            return gasSite.getName();
+        }
+        return "暂无";
+    }
+
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
         //点击完成，下一步操作
@@ -279,16 +337,16 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     }
 
     public void uploadImage(File pic) {
-        mPrensent.uploadPhoto(pic, new ReqCallback<String>() {
+        mPrensent.uploadPhoto(pic, new ReqCallback<ImageEntity>() {
             @Override
             public void onReqStart() {
                 fragment.showProgressDialog();
             }
             @Override
-            public void onNetResp(String response) {
+            public void onNetResp(ImageEntity response) {
                 fragment.dismissProgressDialog();
-                if(gasRecordEntity != null){
-                    gasRecordEntity.setImage(response);
+                if(gasRecordEntity != null && response != null){
+                    gasRecordEntity.setImage(response.getId());
                 }
             }
             @Override
@@ -322,9 +380,15 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
         refreshRegisterInfo();
     }
 
-    public void refreshCardInfo(){
+    public void refreshCardInfo(FuelCardEntity response){
+        if(gasRecordEntity == null){
+            gasRecordEntity = new GasRecordEntity();
+        }
+        if(response != null){
+            gasRecordEntity.setCardNum(response.getJykh());
+            gasRecordEntity.setGasType(response.getGyzl());
+        }
         gasRecordEntity.setIdInfo(idInfor);
-        gasRecordEntity.setCardNum("T1234");
         setGasRecordEntity(gasRecordEntity);
     }
 
@@ -335,19 +399,21 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
         }
         boolean isSuccess = BitmapUtils.writeBmpToSDCard(idInfor.getBmps(),FileUtil.PROJECT_IMAGE_HEADER_CACHE,100);
         if(isSuccess){
-            mPrensent.uploadPhoto(FileUtil.PROJECT_IMAGE_HEADER_CACHE, new ReqCallback<String>() {
+            mPrensent.uploadPhoto(FileUtil.PROJECT_IMAGE_HEADER_CACHE, new ReqCallback<ImageEntity>() {
                 @Override
                 public void onReqStart() {
                     requestTime++;
                     fragment.showProgressDialog();
                 }
                 @Override
-                public void onNetResp(String response) {
+                public void onNetResp(ImageEntity response) {
                     requestTime--;
                     if(requestTime <= 0){
                         fragment.dismissProgressDialog();
                     }
-                    gasRecordEntity.setHeaderImg(response);
+                    if(response != null && !StringUtil.isEmpty(response.getId())){
+                        gasRecordEntity.setHeaderImg(response.getId());
+                    }
                 }
                 @Override
                 public void onReqError(HttpEvent httpEvent) {
@@ -366,20 +432,20 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
             ViewUtils.Toast(activity,"请重新扫描身份证");
             return;
         }
-        mPrensent.verify(idInfor, new ReqCallback<String>() {
+        mPrensent.verify(idInfor, new ReqCallback<FuelCardEntity>() {
             @Override
             public void onReqStart() {
                 requestTime++;
                 fragment.showProgressDialog();
             }
             @Override
-            public void onNetResp(String response) {
+            public void onNetResp(FuelCardEntity response) {
                 requestTime--;
                 if(requestTime <= 0){
                     fragment.dismissProgressDialog();
                 }
                 //刷新加油信息
-                refreshCardInfo();
+                refreshCardInfo(response);
             }
             @Override
             public void onReqError(HttpEvent httpEvent) {

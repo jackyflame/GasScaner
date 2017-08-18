@@ -44,17 +44,19 @@
     </string-array>
 
     <string-array name="plate_type_items">
-        <item>蓝牌</item>
-        <item>黄牌</item>
-        <item>其他</item>
+        <item>蓝牌,1</item>
+        <item>黄牌,2</item>
+        <item>其他,9</item>
     </string-array>
 
     <string-array name="gas_type_items">
-        <item>汽油92#</item>
-        <item>汽油95#</item>
-        <item>柴油0#</item>
-        <item>柴油10#</item>
-        <item>柴油20#</item>
+        <item>汽油92#,1</item>
+        <item>汽油95#,2</item>
+        <item>汽油98#,3</item>
+        <item>柴油0#,4</item>
+        <item>柴油10#,5</item>
+        <item>柴油20#,6</item>
+        <item>其他,9</item>
     </string-array>
 
 </resources>

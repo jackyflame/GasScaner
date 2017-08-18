@@ -152,6 +152,7 @@
                 android:background="@mipmap/bg_trans_diver"/>
 
             <RelativeLayout
+                android:visibility="@{viewModel.fuelCard != null ? View.VISIBLE:View.INVISIBLE}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -189,7 +190,7 @@
                         android:textColor="@color/text_blue"
                         android:textStyle="bold"
                         android:textSize="@dimen/text_l"
-                        android:text="CA00231"/>
+                        android:text="@{viewModel.fuelCard.jykh}"/>
 
                 </LinearLayout>
 
@@ -203,7 +204,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="摩托车"
+                        android:text="@{viewModel.fuelCard.cx}"
                         android:paddingRight="@dimen/padding_xl"/>
 
                 </LinearLayout>
@@ -219,7 +220,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/padding_s"
-                        android:text="川A123456"/>
+                        android:text="@{viewModel.fuelCard.hm}"/>
 
                 </LinearLayout>
 
@@ -234,7 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/padding_s"
-                        android:text="51055668899545"/>
+                        android:text="@{viewModel.fuelCard.hm}"/>
 
                 </LinearLayout>
 
@@ -243,6 +244,7 @@
             </RelativeLayout>
 
             <TextView
+                android:visibility="@{viewModel.fuelCard != null ? View.VISIBLE:View.INVISIBLE}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/padding_l"
                 android:background="@mipmap/bg_trans_diver"/>

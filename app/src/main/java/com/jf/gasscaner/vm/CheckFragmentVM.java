@@ -15,6 +15,7 @@ import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
 import com.jf.gasscaner.base.vm.BaseVM;
 import com.jf.gasscaner.db.UserPresent;
+import com.jf.gasscaner.net.entity.FuelCardEntity;
 import com.jf.gasscaner.ui.CheckFragment;
 import com.speedata.libid2.IDInfor;
 
@@ -28,6 +29,7 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
     private CheckFragment fragment;
     private IDInfor idInfor;
     private int mark;
+    private FuelCardEntity fuelCard;
 
     public CheckFragmentVM(CheckFragment fragment) {
         super(new UserPresent());
@@ -46,10 +48,10 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
         notifyPropertyChanged(BR.birthday);
     }
 
-    public void scanReslt(){
+    public void scanReslt(IDInfor idInfor){
         idInfor = new IDInfor();
         idInfor.setName("张三");
-        idInfor.setNum("510622198805052211");
+        idInfor.setNum("123");
         idInfor.setSex("男");
         idInfor.setNation("汉族");
         idInfor.setAddress("四川省成都市成华区将军路223号");
@@ -61,19 +63,21 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
 
         setIdInfor(idInfor);
 
-        mPrensent.verify(idInfor, new ReqCallback<String>() {
+        mPrensent.verify(idInfor, new ReqCallback<FuelCardEntity>() {
             @Override
             public void onReqStart() {
                 fragment.showProgressDialog();
             }
             @Override
-            public void onNetResp(String response) {
+            public void onNetResp(FuelCardEntity response) {
                 fragment.dismissProgressDialog();
+                setFuelCard(response);
                 setMark(R.mipmap.ic_check_ok);
             }
             @Override
             public void onReqError(HttpEvent httpEvent) {
                 fragment.dismissProgressDialog();
+                setFuelCard(null);
                 if(httpEvent.getCode() == ErrorType.ERROR_CHECK_UNREGISTER){
                     setMark(R.mipmap.ic_check_unregiter);
                 }else if(httpEvent.getCode() == ErrorType.ERROR_CHECK_BLACKLIST){
@@ -101,5 +105,15 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
             return "";
         }
         return activity.getResources().getString(R.string.id_birthday_format,idInfor.getYear(),idInfor.getMonth(),idInfor.getDay());
+    }
+
+    @Bindable
+    public FuelCardEntity getFuelCard() {
+        return fuelCard;
+    }
+
+    public void setFuelCard(FuelCardEntity fuelCard) {
+        this.fuelCard = fuelCard;
+        notifyPropertyChanged(BR.fuelCard);
     }
 }

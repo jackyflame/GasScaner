@@ -4,6 +4,7 @@ import com.cvr.device.IDCardInfo;
 import com.haozi.baselibrary.net.retrofit.BaseWorker;
 import com.haozi.baselibrary.net.retrofit.ReqCallback;
 import com.haozi.baselibrary.net.retrofit.RetrofitHelper;
+import com.jf.gasscaner.net.entity.FuelCardEntity;
 import com.jf.gasscaner.net.entity.GasRecordEntity;
 import com.jf.gasscaner.net.entity.ImageEntity;
 import com.jf.gasscaner.net.entity.UserEntity;
@@ -39,7 +40,7 @@ public class UserWorker extends BaseWorker {
         defaultCall(userService.login(username,password),callback);
     }
 
-    public void uploadPhoto(String filePath,ReqCallback<String> callback){
+    public void uploadPhoto(String filePath,ReqCallback<ImageEntity> callback){
         File file = new File(filePath);
         uploadPhoto(file,callback);
     }
@@ -47,7 +48,7 @@ public class UserWorker extends BaseWorker {
     /**
      * 上传成功返回附件id
      * */
-    public void uploadPhoto(File file,ReqCallback<String> callback){
+    public void uploadPhoto(File file,ReqCallback<ImageEntity> callback){
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"),file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("uploadFile",file.getName(),requestBody);
         defaultCall(userService.uploadPhoto(body),callback);
@@ -77,13 +78,13 @@ public class UserWorker extends BaseWorker {
     /**
      * 查询
      * */
-    public void verify(IDInfor idInfor, ReqCallback<String> callback){
+    public void verify(IDInfor idInfor, ReqCallback<FuelCardEntity> callback){
         String birthday = idInfor.getYear()+"年"+idInfor.getMonth()+"月"+idInfor.getDay()+"日";
         verify(idInfor.getName(),idInfor.getNum(),idInfor.getSex(),birthday,idInfor.getNation(),idInfor.getAddress(),callback);
     }
 
     public void verify(String name,String idcard, String sex, String birthday,
-                       String nation, String address,ReqCallback<String> callback){
+                       String nation, String address,ReqCallback<FuelCardEntity> callback){
         defaultCall(userService.verify(name,idcard,sex,birthday,nation,address),callback);
     }
 }

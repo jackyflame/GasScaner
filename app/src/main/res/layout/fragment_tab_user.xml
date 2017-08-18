@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_l"
                     android:textColor="@color/text_black_gray"
-                    android:text="张三"/>
+                    android:text="@{viewModel.userName}"/>
         </LinearLayout>
 
         <TextView
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_l"
                 android:textColor="@color/text_black_gray"
-                android:text="甘孜民贸加油站"/>
+                android:text="@{viewModel.gasSite}"/>
         </LinearLayout>
 
         <TextView

@@ -8,7 +8,9 @@ import com.haozi.baselibrary.event.HttpEvent;
 import com.haozi.baselibrary.net.config.ErrorType;
 import com.haozi.baselibrary.net.retrofit.ReqCallback;
 import com.haozi.baselibrary.utils.StringUtil;
+import com.jf.gasscaner.net.entity.FuelCardEntity;
 import com.jf.gasscaner.net.entity.GasRecordEntity;
+import com.jf.gasscaner.net.entity.ImageEntity;
 import com.jf.gasscaner.net.entity.UserEntity;
 import com.jf.gasscaner.net.worker.UserWorker;
 import com.speedata.libid2.IDInfor;
@@ -88,7 +90,7 @@ public class UserPresent extends BasePresent {
         });
     }
 
-    public void uploadPhoto(String filePath,ReqCallback<String> callback){
+    public void uploadPhoto(String filePath,ReqCallback<ImageEntity> callback){
         String nowUserId = getNowUserId();
         if(StringUtil.isEmpty(nowUserId)){
             callback.onReqError(new HttpEvent(ErrorType.ERROR_INVALID_USER,"用户未登录"));
@@ -97,7 +99,7 @@ public class UserPresent extends BasePresent {
         }
     }
 
-    public void uploadPhoto(File file, ReqCallback<String> callback){
+    public void uploadPhoto(File file, ReqCallback<ImageEntity> callback){
         String nowUserId = getNowUserId();
         if(StringUtil.isEmpty(nowUserId)){
             callback.onReqError(new HttpEvent(ErrorType.ERROR_INVALID_USER,"用户未登录"));
@@ -106,7 +108,7 @@ public class UserPresent extends BasePresent {
         }
     }
 
-    public void verify(IDInfor idInfor, ReqCallback<String> callback){
+    public void verify(IDInfor idInfor, ReqCallback<FuelCardEntity> callback){
         userWorker.verify(idInfor,callback);
     }
 

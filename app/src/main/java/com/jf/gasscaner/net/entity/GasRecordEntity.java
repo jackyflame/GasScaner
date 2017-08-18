@@ -24,6 +24,7 @@ public class GasRecordEntity extends BaseNetEntity {
     private String plateTypeName;
     private String plateNum;
     private String gasType;
+    private String gasTypeName;
     private int gasMount;
 
     private String plateFirstNum;
@@ -113,6 +114,14 @@ public class GasRecordEntity extends BaseNetEntity {
 
     public void setGasType(String gasType) {
         this.gasType = gasType;
+    }
+
+    public String getGasTypeName() {
+        return gasTypeName;
+    }
+
+    public void setGasTypeName(String gasTypeName) {
+        this.gasTypeName = gasTypeName;
     }
 
     public int getGasMount() {
@@ -227,14 +236,25 @@ public class GasRecordEntity extends BaseNetEntity {
     }
 
     public void setIdInfo(IDInfor idInfo){
-        setName(idInfo.getName());
-        setIdNum(idInfo.getNum());
-        setSex(idInfo.getSex());
-        setNation(idInfo.getNation());
-        setAddress(idInfo.getAddress());
-        setYear(idInfo.getYear());
-        setMonth(idInfo.getMonth());
-        setDay(idInfo.getDay());
+        if(idInfo == null){
+            setName(null);
+            setIdNum(null);
+            setSex(null);
+            setNation(null);
+            setAddress(null);
+            setYear(null);
+            setMonth(null);
+            setDay(null);
+        }else{
+            setName(idInfo.getName());
+            setIdNum(idInfo.getNum());
+            setSex(idInfo.getSex());
+            setNation(idInfo.getNation());
+            setAddress(idInfo.getAddress());
+            setYear(idInfo.getYear());
+            setMonth(idInfo.getMonth());
+            setDay(idInfo.getDay());
+        }
     }
 
     public String getPlateFirstNum(){

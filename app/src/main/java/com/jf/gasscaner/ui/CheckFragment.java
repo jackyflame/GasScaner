@@ -30,13 +30,13 @@ public class CheckFragment extends BaseDBFragment<FragmentTabCheckBinding,CheckF
         mBinding.btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.scanReslt();
+                viewModel.scanReslt(null);
             }
         });
     }
 
     @Override
     public void scanCallback(IDInfor idInfor) {
-
+        viewModel.scanReslt(idInfor);
     }
 }

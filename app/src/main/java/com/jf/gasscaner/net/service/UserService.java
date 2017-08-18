@@ -1,6 +1,7 @@
 package com.jf.gasscaner.net.service;
 
 import com.haozi.baselibrary.net.entity.RespEntity;
+import com.jf.gasscaner.net.entity.FuelCardEntity;
 import com.jf.gasscaner.net.entity.ImageEntity;
 import com.jf.gasscaner.net.entity.UserEntity;
 import com.jf.greendaolib.User;
@@ -39,7 +40,7 @@ public interface UserService {
      * */
     @Multipart
     @POST("fuelingRecordController.do?uploadPhoto")
-    Observable<Response<RespEntity<String>>> uploadPhoto(@Part MultipartBody.Part file);
+    Observable<Response<RespEntity<ImageEntity>>> uploadPhoto(@Part MultipartBody.Part file);
 
     /**
      * 数据采集
@@ -79,8 +80,8 @@ public interface UserService {
      * @return  601：黑名单 602：未登记 200：认证通过
      * */
     @GET("fuelCardController.do?verify")
-    Observable<Response<RespEntity<String>>> verify(@Query(value = "name") String name, @Query(value = "idcard") String idcard,
-                                                        @Query(value = "sex") String sex, @Query(value = "birthday") String birthday,
-                                                        @Query(value = "nation") String nation, @Query(value = "address") String address);
+    Observable<Response<RespEntity<FuelCardEntity>>> verify(@Query(value = "name") String name, @Query(value = "idcard") String idcard,
+                                                            @Query(value = "sex") String sex, @Query(value = "birthday") String birthday,
+                                                            @Query(value = "nation") String nation, @Query(value = "address") String address);
 
 }

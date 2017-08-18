@@ -7,6 +7,8 @@ import android.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
+import android.serialport.DeviceControl;
+import android.serialport.SerialPort;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
 
     protected void initID() {
         iid2Service = IDManager.getInstance();
+        getHandler();
         try {
             boolean result = iid2Service.initDev(this, new IDReadCallBack() {
                 @Override
@@ -41,7 +44,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                     message.obj = infor;
                     getHandler().sendMessage(message);
                 }
-            });
+            }, SerialPort.SERIAL_TTYMT1,115200, DeviceControl.PowerType.MAIN,94);
             if (!result) {
                 new AlertDialog.Builder(this).setCancelable(false).setMessage("二代证模块初始化失败")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -52,6 +55,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                         }).show();
             } else {
                 showToast("初始化成功");
+                iid2Service.getIDInfor(false,isAutoScan);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +72,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                     long left_time = System.currentTimeMillis() - startTime;
                     Log.d("Reginer", "耗时：: " + left_time+"ms");
                     startTime = System.currentTimeMillis();
-                    iid2Service.getIDInfor(false, isAutoScan);
+                    iid2Service.getIDInfor(false,isAutoScan);
                     IDInfor idInfor = (IDInfor) msg.obj;
                     if (idInfor.isSuccess()) {
                         Log.d("Reginer", "read success time is: " + left_time);
