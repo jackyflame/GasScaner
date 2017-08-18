@@ -361,7 +361,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     public void scanResult() {
         idInfor = new IDInfor();
         idInfor.setName("张三");
-        idInfor.setNum("510622198805052211");
+        idInfor.setNum("123");
         idInfor.setSex("男");
         idInfor.setNation("汉族");
         idInfor.setAddress("四川省成都市成华区将军路223号");
@@ -387,6 +387,11 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
         if(response != null){
             gasRecordEntity.setCardNum(response.getJykh());
             gasRecordEntity.setGasType(response.getGyzl());
+            DicConst.GasType gasType = DicConst.GasType.ValueOf(response.getGyzl());
+            if(gasType != null){
+                gasRecordEntity.setGasTypeName(gasType.getName());
+            }
+            gasRecordEntity.setPlateNum(response.getHm());
         }
         gasRecordEntity.setIdInfo(idInfor);
         setGasRecordEntity(gasRecordEntity);
