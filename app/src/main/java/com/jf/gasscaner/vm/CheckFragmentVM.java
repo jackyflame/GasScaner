@@ -69,6 +69,7 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
         //小于扫描间隔周期
         if((System.currentTimeMillis() - lastScanTime < ScanScale) && idInfor != null
                 && idInfor.getNum() != null && idInfor.getNum().equals(idInforNew.getNum())){
+            ViewUtils.Toast(activity,"请不要重复刷卡");
             return;
         }
 

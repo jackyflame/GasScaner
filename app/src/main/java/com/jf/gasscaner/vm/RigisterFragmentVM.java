@@ -62,7 +62,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     private int requestTime = 0;
 
     private long lastScanTime;
-    private static final long ScanScale = 1000 * 10;
+    private static final long ScanScale = 1000 * 5;
 
     public RigisterFragmentVM(RigisterFragment fragment) {
         super(new UserPresent());
@@ -364,7 +364,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     public void scanResult(IDInfor idInforNew) {
 //        idInfor = new IDInfor();
 //        idInforNew.setName("张三");
-//        idInforNew.setNum("123");
+//        idInforNew.setNum("12388888");
 //        idInforNew.setSex("男");
 //        idInforNew.setNation("汉族");
 //        idInforNew.setAddress("四川省成都市成华区将军路223号");
@@ -376,6 +376,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
 
         if((System.currentTimeMillis() - lastScanTime < ScanScale) && idInfor != null
                 && idInfor.getNum() != null && idInfor.getNum().equals(idInforNew.getNum())){
+            ViewUtils.Toast(activity,"请不要重复刷卡");
             return;
         }
 

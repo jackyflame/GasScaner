@@ -120,6 +120,13 @@ public class UserPresent extends BasePresent {
                 gasRecordEntity.setGasStation(userEntity.getJyz());
             }
         }
+        if(gasRecordEntity.getPlateOtherNum() != null){
+            String platNum = gasRecordEntity.getPlateOtherNum();
+            if(!StringUtil.isEmpty(gasRecordEntity.getPlateFirstNum())){
+                platNum = gasRecordEntity.getPlateFirstNum() + platNum;
+            }
+            gasRecordEntity.setPlateNum(platNum);
+        }
         userWorker.saveGasRecord(gasRecordEntity,callback);
     }
 }
