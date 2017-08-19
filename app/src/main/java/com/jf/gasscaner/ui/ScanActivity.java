@@ -37,7 +37,14 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
     protected boolean isScanEnable;
     protected Handler handler;
 
+    private static final int MSG_SCAN_RESULT = 1000;
+    private static final int MSG_SCAN_RESTART = 2000;
+
     protected void initID() {
+        initID(false);
+    }
+
+    protected void initID(boolean isReinit) {
         PlaySoundUtils.initSoundPool(this);
         iid2Service = IDManager.getInstance();
         getHandler();
@@ -47,6 +54,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                 public void callBack(IDInfor infor) {
                     Message message = new Message();
                     message.obj = infor;
+                    message.what = MSG_SCAN_RESULT;
                     getHandler().sendMessage(message);
                 }
             }, SerialPort.SERIAL_TTYMT1,115200, DeviceControl.PowerType.MAIN,64);
@@ -59,11 +67,12 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                             }
                         }).show();
             } else {
-                showToast("初始化成功");
                 isScanEnable = true;
-                //showDeviceInfo();
+                if(isReinit){
+                    getHandler().sendEmptyMessageDelayed(MSG_SCAN_RESTART,1000);
+                }
+                showToast("初始化成功");
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,17 +85,21 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                 @Override
                 public void handleMessage(Message msg) {
                     super.handleMessage(msg);
-                    long left_time = System.currentTimeMillis() - startTime;
-                    Log.d("Reginer", "耗时：: " + left_time+"ms");
-                    startTime = System.currentTimeMillis();
-                    iid2Service.getIDInfor(false,isAutoScan());
-                    IDInfor idInfor = (IDInfor) msg.obj;
-                    if (idInfor.isSuccess()) {
-                        Log.d("Reginer", "read success time is: " + left_time);
-                        PlaySoundUtils.play(1,1);
-                        handleIDInfo(idInfor);
-                    } else {
-                        Toast.makeText(ScanActivity.this,String.format("ERROR:%s", idInfor.getErrorMsg()),Toast.LENGTH_SHORT);
+                    if(msg.what == MSG_SCAN_RESULT){
+                        long left_time = System.currentTimeMillis() - startTime;
+                        Log.d("Reginer", "耗时：: " + left_time+"ms");
+                        startTime = System.currentTimeMillis();
+                        iid2Service.getIDInfor(false,isAutoScan());
+                        IDInfor idInfor = (IDInfor) msg.obj;
+                        if (idInfor.isSuccess()) {
+                            Log.d("Reginer", "read success time is: " + left_time);
+                            PlaySoundUtils.play(1,1);
+                            handleIDInfo(idInfor);
+                        } else {
+                            Toast.makeText(ScanActivity.this,String.format("ERROR:%s", idInfor.getErrorMsg()),Toast.LENGTH_SHORT);
+                        }
+                    }else if(msg.what == MSG_SCAN_RESTART){
+                        runScan(isAutoScan());
                     }
                 }
             };
@@ -99,12 +112,15 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
     @Override
     protected void onDestroy() {
         try {
-            if (iid2Service != null)
+            if (iid2Service != null){
+                iid2Service.getIDInfor(false,false);
                 iid2Service.releaseDev();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         super.onDestroy();
+        System.exit(0);
     }
 
     public boolean isAutoScan() {

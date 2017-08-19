@@ -57,6 +57,7 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //检查返回结果状态
         if(requestCode == INPUT_CONTENT_TACKPIC || requestCode == INPUT_CONTENT_ADDPIC ){
+            //返回图片处理方式
             if(resultCode == RESULT_OK){
                 switch (requestCode) {
                     case INPUT_CONTENT_TACKPIC:
@@ -76,9 +77,12 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
                         viewModel.uploadImage(pic);
                         break;
                 }
-            }else{
-                return;
             }
+            ////调用摄像头以后重新初始化
+            //if(getActivity() instanceof ScanActivity){
+            //    ((ScanActivity) getActivity()).initID(true);
+            //}
+
         }
     }
 

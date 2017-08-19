@@ -362,17 +362,17 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     }
 
     public void scanResult(IDInfor idInforNew) {
-//        idInfor = new IDInfor();
-//        idInforNew.setName("张三");
-//        idInforNew.setNum("12388888");
-//        idInforNew.setSex("男");
-//        idInforNew.setNation("汉族");
-//        idInforNew.setAddress("四川省成都市成华区将军路223号");
-//        idInforNew.setYear("1988");
-//        idInforNew.setMonth("05");
-//        idInforNew.setDay("05");
-//        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
-//        idInforNew.setBmps(bmp);
+        idInfor = new IDInfor();
+        idInforNew.setName("张三");
+        idInforNew.setNum("12388888");
+        idInforNew.setSex("男");
+        idInforNew.setNation("汉族");
+        idInforNew.setAddress("四川省成都市成华区将军路223号");
+        idInforNew.setYear("1988");
+        idInforNew.setMonth("05");
+        idInforNew.setDay("05");
+        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
+        idInforNew.setBmps(bmp);
 
         if((System.currentTimeMillis() - lastScanTime < ScanScale) && idInfor != null
                 && idInfor.getNum() != null && idInfor.getNum().equals(idInforNew.getNum())){

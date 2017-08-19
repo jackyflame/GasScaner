@@ -55,16 +55,16 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
 
     public void scanReslt(IDInfor idInforNew){
 //        idInforNew = new IDInfor();
-//        idInforNew.setName("张三");
-//        idInforNew.setNum("123");
-//        idInforNew.setSex("男");
-//        idInforNew.setNation("汉族");
-//        idInforNew.setAddress("四川省成都市成华区将军路223号");
-//        idInforNew.setYear("1988");
-//        idInforNew.setMonth("05");
-//        idInforNew.setDay("05");
-//        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
-//        idInforNew.setBmps(bmp);
+        idInforNew.setName("张三");
+        idInforNew.setNum("123");
+        idInforNew.setSex("男");
+        idInforNew.setNation("汉族");
+        idInforNew.setAddress("四川省成都市成华区将军路223号");
+        idInforNew.setYear("1988");
+        idInforNew.setMonth("05");
+        idInforNew.setDay("05");
+        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
+        idInforNew.setBmps(bmp);
 
         //小于扫描间隔周期
         if((System.currentTimeMillis() - lastScanTime < ScanScale) && idInfor != null
