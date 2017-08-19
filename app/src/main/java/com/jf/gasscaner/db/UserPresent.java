@@ -116,7 +116,7 @@ public class UserPresent extends BasePresent {
         if(gasRecordEntity != null){
             UserEntity userEntity = getUser();
             if(userEntity != null){
-                gasRecordEntity.setOporator(userEntity.getId());
+                gasRecordEntity.setOporator(userEntity.getXm());
                 gasRecordEntity.setGasStation(userEntity.getJyz());
             }
         }
