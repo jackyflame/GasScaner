@@ -62,7 +62,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     private int requestTime = 0;
 
     private long lastScanTime;
-    private static final long ScanScale = 1000 * 60;
+    private static final long ScanScale = 1000 * 10;
 
     public RigisterFragmentVM(RigisterFragment fragment) {
         super(new UserPresent());

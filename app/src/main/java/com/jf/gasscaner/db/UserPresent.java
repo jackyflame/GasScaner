@@ -113,6 +113,13 @@ public class UserPresent extends BasePresent {
     }
 
     public void saveGasRecord(GasRecordEntity gasRecordEntity, ReqCallback<String> callback){
+        if(gasRecordEntity != null){
+            UserEntity userEntity = getUser();
+            if(userEntity != null){
+                gasRecordEntity.setOporator(userEntity.getId());
+                gasRecordEntity.setGasStation(userEntity.getJyz());
+            }
+        }
         userWorker.saveGasRecord(gasRecordEntity,callback);
     }
 }

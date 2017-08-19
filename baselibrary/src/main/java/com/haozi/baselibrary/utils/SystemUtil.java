@@ -187,6 +187,7 @@ public class SystemUtil {
 		try {
 			takePicFile.createNewFile();
 			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0.6);
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(takePicFile));
 			return intent;
 		} catch (IOException e) {
