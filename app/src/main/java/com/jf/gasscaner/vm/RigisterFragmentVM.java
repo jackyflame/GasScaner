@@ -61,6 +61,9 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     private GasRecordEntity gasRecordEntity;
     private int requestTime = 0;
 
+    private long lastScanTime;
+    private static final long ScanScale = 1000 * 60;
+
     public RigisterFragmentVM(RigisterFragment fragment) {
         super(new UserPresent());
         this.activity = fragment.getActivity();
@@ -358,20 +361,26 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
         });
     }
 
-    public void scanResult() {
-        idInfor = new IDInfor();
-        idInfor.setName("张三");
-        idInfor.setNum("123");
-        idInfor.setSex("男");
-        idInfor.setNation("汉族");
-        idInfor.setAddress("四川省成都市成华区将军路223号");
-        idInfor.setYear("1988");
-        idInfor.setMonth("05");
-        idInfor.setDay("05");
-        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
-        idInfor.setBmps(bmp);
+    public void scanResult(IDInfor idInforNew) {
+//        idInfor = new IDInfor();
+//        idInforNew.setName("张三");
+//        idInforNew.setNum("123");
+//        idInforNew.setSex("男");
+//        idInforNew.setNation("汉族");
+//        idInforNew.setAddress("四川省成都市成华区将军路223号");
+//        idInforNew.setYear("1988");
+//        idInforNew.setMonth("05");
+//        idInforNew.setDay("05");
+//        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
+//        idInforNew.setBmps(bmp);
 
-        setIdInfor(idInfor);
+        if((System.currentTimeMillis() - lastScanTime < ScanScale) && idInfor != null
+                && idInfor.getNum() != null && idInfor.getNum().equals(idInforNew.getNum())){
+            return;
+        }
+
+        setIdInfor(idInforNew);
+        lastScanTime = System.currentTimeMillis();
 
         //上传身份证头像
         uploadIdHeader();

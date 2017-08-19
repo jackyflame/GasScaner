@@ -19,8 +19,11 @@ import com.speedata.libid2.IDInfor;
 import com.speedata.libid2.IDManager;
 import com.speedata.libid2.IDReadCallBack;
 import com.speedata.libid2.IID2Service;
+import com.speedata.libutils.ConfigUtils;
+import com.speedata.libutils.ReadBean;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by jackyflame on 2017/8/11.
@@ -35,6 +38,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
     protected Handler handler;
 
     protected void initID() {
+        PlaySoundUtils.initSoundPool(this);
         iid2Service = IDManager.getInstance();
         getHandler();
         try {
@@ -45,7 +49,7 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
                     message.obj = infor;
                     getHandler().sendMessage(message);
                 }
-            }, SerialPort.SERIAL_TTYMT1,115200, DeviceControl.PowerType.MAIN,94);
+            }, SerialPort.SERIAL_TTYMT1,115200, DeviceControl.PowerType.MAIN,64);
             if (!result) {
                 new AlertDialog.Builder(this).setCancelable(false).setMessage("二代证模块初始化失败")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -57,7 +61,9 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
             } else {
                 showToast("初始化成功");
                 isScanEnable = true;
+                //showDeviceInfo();
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,5 +122,26 @@ public abstract class ScanActivity<X extends ViewDataBinding,T extends BaseVM> e
     public void runScan(boolean isAutoScan){
         setAutoScan(isAutoScan);
         iid2Service.getIDInfor(false, isAutoScan());
+    }
+
+    private void showDeviceInfo(){
+        boolean isExit = ConfigUtils.isConfigFileExists();
+        StringBuffer info = new StringBuffer();
+        if (isExit)
+            info.append("定制配置：");
+        else
+            info.append("标准配置：");
+        ReadBean.Id2Bean pasm = ConfigUtils.readConfig(this).getId2();
+        String gpio = "";
+        List<Integer> gpio1 = pasm.getGpio();
+        for (Integer s : gpio1) {
+            gpio += s + ",";
+        }
+        info.append("串口:" + pasm.getSerialPort())
+                .append( "  波特率：" + pasm.getBraut() )
+                .append( " 上电类型:" + pasm.getPowerType() )
+                .append( " GPIO:" + gpio);
+
+        Toast.makeText(this,info.toString(),Toast.LENGTH_LONG).show();
     }
 }

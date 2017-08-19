@@ -10,6 +10,7 @@ import com.haozi.baselibrary.event.HttpEvent;
 import com.haozi.baselibrary.net.config.ErrorType;
 import com.haozi.baselibrary.net.retrofit.ReqCallback;
 import com.haozi.baselibrary.utils.StringUtil;
+import com.haozi.baselibrary.utils.SystemUtil;
 import com.haozi.baselibrary.utils.ViewUtils;
 import com.jf.gasscaner.BR;
 import com.jf.gasscaner.R;
@@ -32,6 +33,8 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
     private IDInfor idInfor;
     private int mark;
     private FuelCardEntity fuelCard;
+    private long lastScanTime;
+    private static final long ScanScale = 1000 * 5;
 
     public CheckFragmentVM(CheckFragment fragment) {
         super(new UserPresent());
@@ -50,22 +53,30 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
         notifyPropertyChanged(BR.birthday);
     }
 
-    public void scanReslt(IDInfor idInfor){
-        idInfor = new IDInfor();
-        idInfor.setName("张三");
-        idInfor.setNum("123");
-        idInfor.setSex("男");
-        idInfor.setNation("汉族");
-        idInfor.setAddress("四川省成都市成华区将军路223号");
-        idInfor.setYear("1988");
-        idInfor.setMonth("05");
-        idInfor.setDay("05");
-        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
-        idInfor.setBmps(bmp);
+    public void scanReslt(IDInfor idInforNew){
+//        idInforNew = new IDInfor();
+//        idInforNew.setName("张三");
+//        idInforNew.setNum("123");
+//        idInforNew.setSex("男");
+//        idInforNew.setNation("汉族");
+//        idInforNew.setAddress("四川省成都市成华区将军路223号");
+//        idInforNew.setYear("1988");
+//        idInforNew.setMonth("05");
+//        idInforNew.setDay("05");
+//        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
+//        idInforNew.setBmps(bmp);
 
-        setIdInfor(idInfor);
+        //小于扫描间隔周期
+        if((System.currentTimeMillis() - lastScanTime < ScanScale) && idInfor != null
+                && idInfor.getNum() != null && idInfor.getNum().equals(idInforNew.getNum())){
+            return;
+        }
 
-        mPrensent.verify(idInfor, new ReqCallback<FuelCardEntity>() {
+        setIdInfor(idInforNew);
+        lastScanTime = System.currentTimeMillis();
+
+        //查询数据
+        mPrensent.verify(idInforNew, new ReqCallback<FuelCardEntity>() {
             @Override
             public void onReqStart() {
                 fragment.showProgressDialog();

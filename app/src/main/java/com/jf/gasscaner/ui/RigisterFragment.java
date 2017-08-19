@@ -48,7 +48,7 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
         mBinding.btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.scanResult();
+                viewModel.scanResult(null);
             }
         });
     }
@@ -88,6 +88,6 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
 
     @Override
     public void scanCallback(IDInfor idInfor) {
-        viewModel.setIdInfor(idInfor);
+        viewModel.scanResult(idInfor);
     }
 }

@@ -21,7 +21,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="165dp"
-                android:background="@mipmap/bg_idcard_real"
+                android:background="@mipmap/bg_idcard"
                 android:paddingBottom="@dimen/padding_l"
                 android:paddingLeft="@dimen/padding_l"
                 android:paddingRight="@dimen/padding_l"
@@ -405,6 +405,7 @@
                 android:id="@+id/btn_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="测试"/>
 
         </LinearLayout>

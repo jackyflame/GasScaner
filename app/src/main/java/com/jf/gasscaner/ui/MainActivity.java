@@ -3,6 +3,7 @@ package com.jf.gasscaner.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
@@ -99,12 +100,20 @@ public class MainActivity extends ScanActivity implements TabHost.OnTabChangeLis
     }
 
     @Override
-    public void onTabChanged(String tabId) {
+    public void onTabChanged(final String tabId) {
         if(StringUtil.isInteger(tabId)){
             setTitle(Integer.valueOf(tabId));
         }
-        String frgTag = mTabHost.getCurrentTabTag();
+        final String frgTag = mTabHost.getCurrentTabTag();
         nowFragment = getSupportFragmentManager().findFragmentByTag(frgTag);
+        if (nowFragment == null) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    nowFragment = getSupportFragmentManager().findFragmentByTag(frgTag);
+                }
+            }, 50);
+        }
     }
 
     @Override
