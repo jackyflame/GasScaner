@@ -202,6 +202,10 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
             Toast.makeText(activity,"请填写加油量",Toast.LENGTH_SHORT).show();
             return;
         }
+        if(gasRecordEntity.getGasMount()>=10000){
+            Toast.makeText(activity,"加油量超限，请重新输入",Toast.LENGTH_SHORT).show();
+            return;
+        }
         mPrensent.saveGasRecord(gasRecordEntity, new ReqCallback<String>() {
             @Override
             public void onReqStart() {
