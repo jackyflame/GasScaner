@@ -78,11 +78,10 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
                         break;
                 }
             }
-            ////调用摄像头以后重新初始化
-            //if(getActivity() instanceof ScanActivity){
-            //    ((ScanActivity) getActivity()).initID(true);
-            //}
-
+            //调用摄像头以后重新初始化
+            if(getActivity() instanceof ScanActivity){
+                ((ScanActivity) getActivity()).initID(true);
+            }
         }
     }
 

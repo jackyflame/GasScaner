@@ -62,7 +62,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     private int requestTime = 0;
 
     private long lastScanTime;
-    private static final long ScanScale = 1000 * 5;
+    private static final long ScanScale = 1000 * 10;
 
     public RigisterFragmentVM(RigisterFragment fragment) {
         super(new UserPresent());
@@ -216,6 +216,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                 //清空记录
                 setIdInfor(null);
                 setGasRecordEntity(null);
+                fragment.cleanPic();
             }
 
             @Override
@@ -362,17 +363,16 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     }
 
     public void scanResult(IDInfor idInforNew) {
-        idInfor = new IDInfor();
-        idInforNew.setName("张三");
-        idInforNew.setNum("12388888");
-        idInforNew.setSex("男");
-        idInforNew.setNation("汉族");
-        idInforNew.setAddress("四川省成都市成华区将军路223号");
-        idInforNew.setYear("1988");
-        idInforNew.setMonth("05");
-        idInforNew.setDay("05");
-        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
-        idInforNew.setBmps(bmp);
+//        idInforNew.setName("张三");
+//        idInforNew.setNum("12388888");
+//        idInforNew.setSex("男");
+//        idInforNew.setNation("汉族");
+//        idInforNew.setAddress("四川省成都市成华区将军路223号");
+//        idInforNew.setYear("1988");
+//        idInforNew.setMonth("05");
+//        idInforNew.setDay("05");
+//        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
+//        idInforNew.setBmps(bmp);
 
         if((System.currentTimeMillis() - lastScanTime < ScanScale) && idInfor != null
                 && idInfor.getNum() != null && idInfor.getNum().equals(idInforNew.getNum())){
