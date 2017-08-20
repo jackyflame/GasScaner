@@ -364,7 +364,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
 
     public void scanResult(IDInfor idInforNew) {
 //        idInforNew.setName("张三");
-//        idInforNew.setNum("12388888");
+//        idInforNew.setNum("123");
 //        idInforNew.setSex("男");
 //        idInforNew.setNation("汉族");
 //        idInforNew.setAddress("四川省成都市成华区将军路223号");
@@ -395,13 +395,22 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
             gasRecordEntity = new GasRecordEntity();
         }
         if(response != null){
+            //加油卡号
             gasRecordEntity.setCardNum(response.getJykh());
+            //燃油类型
             gasRecordEntity.setGasType(response.getGyzl());
             DicConst.GasType gasType = DicConst.GasType.ValueOf(response.getGyzl());
             if(gasType != null){
                 gasRecordEntity.setGasTypeName(gasType.getName());
             }
+            //车牌号
             gasRecordEntity.setPlateNum(response.getHm());
+            //车型
+            DicConst.CarType carType = DicConst.CarType.NameOf(response.getCx());
+            if(gasType != null){
+                gasRecordEntity.setCarTypeName(carType.getName());
+                gasRecordEntity.setCarType(String.valueOf(carType.getValue()));
+            }
         }
         gasRecordEntity.setIdInfo(idInfor);
         setGasRecordEntity(gasRecordEntity);

@@ -107,4 +107,62 @@ public class DicConst {
             return ValueOf(Integer.valueOf(typecode));
         }
     }
+
+    /**加油种类*/
+    public enum CarType{
+        PTQC(1,"普通汽车"),
+        GWC(2,"公务车"),
+        GCC(3,"工程车"),
+        MTC(4,"摩托车"),
+        SZY(5,"散装油");
+
+        private int mValue;
+        private String mName;
+
+        private CarType(int value,String name){
+            mValue = value;
+            mName = name;
+        }
+
+        public int getValue(){
+            return mValue;
+        }
+
+        public String getName(){
+            return mName;
+        }
+
+        public static CarType ValueOf(int typecode) {
+            //获取所有枚举
+            CarType[] arr = CarType.values();
+            if(arr == null || arr.length == 0){
+                return null;
+            }
+            //遍历获取数据
+            for(CarType type : arr){
+                if(type.mValue == typecode){
+                    return type;
+                }
+            }
+            return null;
+        }
+
+        public static CarType NameOf(String name) {
+            if(StringUtil.isEmpty(name)){
+                return null;
+            }
+            //获取所有枚举
+            CarType[] arr = CarType.values();
+            if(arr == null || arr.length == 0){
+                return null;
+            }
+            //遍历获取数据
+            for(CarType type : arr){
+                if(type.mName.equals(name)){
+                    return type;
+                }
+            }
+            return null;
+        }
+    }
 }
