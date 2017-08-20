@@ -115,7 +115,6 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                             if(gasRecordEntity.getCarType().equals("5")){
                                 gasRecordEntity.setPlateType(null);
                                 gasRecordEntity.setPlateTypeName(null);
-                                gasRecordEntity.setCardNum(null);
                             }
                             notifyPropertyChanged(BR.gasRecordEntity);
                             notifyPropertyChanged(BR.plateTypeVisible);

@@ -82,6 +82,7 @@ public interface UserService {
     @GET("fuelCardController.do?verify")
     Observable<Response<RespEntity<FuelCardEntity>>> verify(@Query(value = "name") String name, @Query(value = "idcard") String idcard,
                                                             @Query(value = "sex") String sex, @Query(value = "birthday") String birthday,
-                                                            @Query(value = "nation") String nation, @Query(value = "address") String address);
+                                                            @Query(value = "nation") String nation, @Query(value = "address") String address,
+                                                            @Query(value = "station") String station,@Query(value = "fuelMan") String fuelMan);
 
 }

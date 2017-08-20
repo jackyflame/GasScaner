@@ -78,13 +78,14 @@ public class UserWorker extends BaseWorker {
     /**
      * 查询
      * */
-    public void verify(IDInfor idInfor, ReqCallback<FuelCardEntity> callback){
+    public void verify(IDInfor idInfor,String station,String fuleman, ReqCallback<FuelCardEntity> callback){
         String birthday = idInfor.getYear()+"年"+idInfor.getMonth()+"月"+idInfor.getDay()+"日";
-        verify(idInfor.getName(),idInfor.getNum(),idInfor.getSex(),birthday,idInfor.getNation(),idInfor.getAddress(),callback);
+        verify(idInfor.getName(),idInfor.getNum(),idInfor.getSex(),birthday,idInfor.getNation(),
+                idInfor.getAddress(),station,fuleman,callback);
     }
 
     public void verify(String name,String idcard, String sex, String birthday,
-                       String nation, String address,ReqCallback<FuelCardEntity> callback){
-        defaultCall(userService.verify(name,idcard,sex,birthday,nation,address),callback);
+                       String nation, String address,String station,String fuleman,ReqCallback<FuelCardEntity> callback){
+        defaultCall(userService.verify(name,idcard,sex,birthday,nation,address,station,fuleman),callback);
     }
 }

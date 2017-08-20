@@ -109,7 +109,12 @@ public class UserPresent extends BasePresent {
     }
 
     public void verify(IDInfor idInfor, ReqCallback<FuelCardEntity> callback){
-        userWorker.verify(idInfor,callback);
+        UserEntity userEntity = getUser();
+        if(userEntity != null){
+            userWorker.verify(idInfor,userEntity.getJyz(),userEntity.getXm(),callback);
+        }else{
+            userWorker.verify(idInfor,"","",callback);
+        }
     }
 
     public void saveGasRecord(GasRecordEntity gasRecordEntity, ReqCallback<String> callback){
