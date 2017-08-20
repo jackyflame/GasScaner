@@ -127,6 +127,11 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
 
     public void setFuelCard(FuelCardEntity fuelCard) {
         this.fuelCard = fuelCard;
+        //车型
+        DicConst.CarType carType = DicConst.CarType.ValueOf(fuelCard.getJyklx());
+        if(carType != null){
+            fuelCard.setJyklx(carType.getName());
+        }
         notifyPropertyChanged(BR.fuelCard);
     }
 

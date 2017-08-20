@@ -409,8 +409,8 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
             //车牌号
             gasRecordEntity.setPlateNum(response.getHm());
             //车型
-            DicConst.CarType carType = DicConst.CarType.NameOf(response.getCx());
-            if(gasType != null){
+            DicConst.CarType carType = DicConst.CarType.ValueOf(response.getJyklx());
+            if(carType != null){
                 gasRecordEntity.setCarTypeName(carType.getName());
                 gasRecordEntity.setCarType(String.valueOf(carType.getValue()));
             }

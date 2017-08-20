@@ -147,6 +147,13 @@ public class DicConst {
             return null;
         }
 
+        public static CarType ValueOf(String typecode) {
+            if(StringUtil.isEmpty(typecode) || !StringUtil.isInteger(typecode)){
+                return null;
+            }
+            return ValueOf(Integer.valueOf(typecode));
+        }
+
         public static CarType NameOf(String name) {
             if(StringUtil.isEmpty(name)){
                 return null;
