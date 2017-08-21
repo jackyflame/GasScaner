@@ -55,7 +55,7 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
 
     public void scanReslt(IDInfor idInforNew){
 //        idInforNew.setName("张三");
-//        idInforNew.setNum("123");
+//        idInforNew.setNum("510703197909151118");
 //        idInforNew.setSex("男");
 //        idInforNew.setNation("汉族");
 //        idInforNew.setAddress("四川省成都市成华区将军路223号");
@@ -127,6 +127,9 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
 
     public void setFuelCard(FuelCardEntity fuelCard) {
         this.fuelCard = fuelCard;
+        if(fuelCard == null){
+            return;
+        }
         //车型
         DicConst.CarType carType = DicConst.CarType.ValueOf(fuelCard.getJyklx());
         if(carType != null){

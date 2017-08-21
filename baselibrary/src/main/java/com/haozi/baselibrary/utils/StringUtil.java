@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public abstract class StringUtil {
 
     public static boolean isEmpty(CharSequence charSequence) {
-        if (TextUtils.isEmpty(charSequence)) return true;
+        if (charSequence == null || TextUtils.isEmpty(charSequence)) return true;
         return TextUtils.isEmpty(charSequence.toString().trim());
     }
 

@@ -367,7 +367,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
 
     public void scanResult(IDInfor idInforNew) {
 //        idInforNew.setName("张三");
-//        idInforNew.setNum("123");
+//        idInforNew.setNum("510703197909151118");
 //        idInforNew.setSex("男");
 //        idInforNew.setNation("汉族");
 //        idInforNew.setAddress("四川省成都市成华区将军路223号");
