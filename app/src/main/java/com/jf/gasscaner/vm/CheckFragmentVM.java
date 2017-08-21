@@ -128,6 +128,7 @@ public class CheckFragmentVM extends BaseVM<UserPresent>{
     public void setFuelCard(FuelCardEntity fuelCard) {
         this.fuelCard = fuelCard;
         if(fuelCard == null){
+            notifyPropertyChanged(BR.fuelCard);
             return;
         }
         //车型
