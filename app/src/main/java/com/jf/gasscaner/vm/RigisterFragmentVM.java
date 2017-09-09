@@ -1,6 +1,7 @@
 package com.jf.gasscaner.vm;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.databinding.Bindable;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ import com.jf.gasscaner.ui.RigisterFragment;
 import com.speedata.libid2.IDInfor;
 
 import java.io.File;
+import java.util.Calendar;
 
 /**
  * Created by admin on 2017/8/9.
@@ -56,6 +59,8 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     /**油类型列表*/
     private String[] gastypeArray;
     private String[] gastypeNameArray;
+
+    private String[] nationArray;
 
     private IDInfor idInfor;
     private GasRecordEntity gasRecordEntity;
@@ -190,9 +195,15 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     }
 
     public void onUploadRecordClick(View view){
+        if(checkIdinfoEmpty()){
+            Toast.makeText(activity,"请扫描或者填写完整的被登记人信息",Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(gasRecordEntity == null){
             Toast.makeText(activity,"获取登记信息失败",Toast.LENGTH_SHORT).show();
             return;
+        }else{
+            gasRecordEntity.setIdInfo(getIdInfor());
         }
         if(StringUtil.isEmpty(gasRecordEntity.getGasType())){
             Toast.makeText(activity,"请选择油品种类",Toast.LENGTH_SHORT).show();
@@ -234,18 +245,99 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
         });
     }
 
+    private boolean checkIdinfoEmpty(){
+        if(idInfor == null){
+            return true;
+        }
+        if(StringUtil.isEmpty(idInfor.getNum()) || StringUtil.isEmpty(idInfor.getName())
+                || StringUtil.isEmpty(idInfor.getSex())|| StringUtil.isEmpty(idInfor.getNation())){
+            return true;
+        }
+        return false;
+    }
+
     public void onImageTakeClick(View view){
         SystemUtil.takePicture(fragment,fragment.INPUT_CONTENT_TACKPIC);
         //SystemUtil.addImage(fragment,fragment.INPUT_CONTENT_ADDPIC);
     }
 
+    public void onSexClick(View view){
+        new AlertDialog.Builder(activity)
+                .setItems(new String[]{"男","女"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position) {
+                       if(position == 0){
+                            getIdInfor().setSex("男");
+                       }else{
+                           getIdInfor().setSex("女");
+                       }
+                       notifyPropertyChanged(BR.idInfor);
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    public void onNationClick(View view){
+        if(nationArray == null){
+            nationArray = activity.getResources().getStringArray(R.array.nation_items);
+        }
+        new AlertDialog.Builder(activity)
+                .setItems(nationArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position) {
+                        //保存选择字母编号
+                        String nation = nationArray[position];
+                        getIdInfor().setNation(nation);
+                        //刷新数据
+                        notifyPropertyChanged(BR.idInfor);
+                        //关联加油数据
+                        if(getGasRecordEntity() == null){
+                            GasRecordEntity newRecord = new GasRecordEntity();
+                            newRecord.setIdInfo(getIdInfor());
+                            setGasRecordEntity(newRecord);
+                        }
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    public void onBirthdayClick(View view){
+        int year = 2017;
+        int month = 1;
+        int day = 1;
+        if(idInfor != null && !StringUtil.isEmpty(idInfor.getYear())){
+            year = Integer.valueOf(idInfor.getYear());
+            month = Integer.valueOf(idInfor.getMonth());
+            day = Integer.valueOf(idInfor.getDay());
+        }
+        MyDatePickerDialog dialog = new MyDatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                idInfor.setYear(String.valueOf(year));
+                idInfor.setMonth(String.valueOf(monthOfYear+1));
+                idInfor.setDay(String.valueOf(dayOfMonth));
+                notifyPropertyChanged(BR.birthday);
+            }
+        },year,month-1,day);
+        dialog.show();
+    }
+
     @Bindable
     public IDInfor getIdInfor() {
+        if(idInfor == null){
+            idInfor = new IDInfor();
+        }
         return idInfor;
     }
 
     public void setIdInfor(IDInfor idInfor) {
-        this.idInfor = idInfor;
+        if(idInfor == null){
+            this.idInfor = new IDInfor();
+        }else{
+            this.idInfor = idInfor;
+        }
         //刷新加油信息
         GasRecordEntity newRecord = new GasRecordEntity();
         newRecord.setIdInfo(idInfor);
@@ -366,17 +458,6 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
     }
 
     public void scanResult(IDInfor idInforNew) {
-//        idInforNew.setName("张三");
-//        idInforNew.setNum("510703197909151118");
-//        idInforNew.setSex("男");
-//        idInforNew.setNation("汉族");
-//        idInforNew.setAddress("四川省成都市成华区将军路223号");
-//        idInforNew.setYear("1988");
-//        idInforNew.setMonth("05");
-//        idInforNew.setDay("05");
-//        Bitmap bmp= BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
-//        idInforNew.setBmps(bmp);
-
         if((System.currentTimeMillis() - lastScanTime < ScanScale) && idInfor != null
                 && idInfor.getNum() != null && idInfor.getNum().equals(idInforNew.getNum())){
             ViewUtils.Toast(activity,"请不要重复刷卡");

@@ -48,7 +48,18 @@ public class RigisterFragment extends BaseDBFragment<FragmentTabRegisterBinding,
         mBinding.btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.scanResult(new IDInfor());
+                IDInfor idInforNew =  new IDInfor();
+                idInforNew.setName("张三");
+                idInforNew.setNum("510703197909151118");
+                idInforNew.setSex("男");
+                idInforNew.setNation("汉族");
+                idInforNew.setAddress("四川省成都市成华区将军路223号");
+                idInforNew.setYear("1988");
+                idInforNew.setMonth("05");
+                idInforNew.setDay("05");
+                Bitmap bmp= BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                idInforNew.setBmps(bmp);
+                viewModel.scanResult(idInforNew);
             }
         });
     }

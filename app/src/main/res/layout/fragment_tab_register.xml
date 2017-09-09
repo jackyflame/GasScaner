@@ -34,11 +34,12 @@
                     android:layout_alignParentLeft="true"
                     android:text="@string/lable_name" />
 
-                <TextView
-                    style="@style/lab_value_black"
+                <EditText
+                    style="@style/edt_value_black"
+                    android:minWidth="100dp"
                     android:layout_alignBaseline="@+id/txv_lable_name"
                     android:layout_toEndOf="@+id/txv_lable_name"
-                    android:text="@{viewModel.idInfor.name}" />
+                    android:text="@={viewModel.idInfor.name}" />
 
                 <!--头像-->
                 <ImageView
@@ -62,8 +63,11 @@
                 <TextView
                     android:id="@+id/txv_sex"
                     style="@style/lab_value_black"
+                    android:minWidth="30dp"
+                    android:drawableLeft="@mipmap/ic_expand_trangle"
                     android:layout_alignBaseline="@+id/txv_lable_sex"
                     android:layout_toEndOf="@+id/txv_lable_sex"
+                    android:onClick="@{viewModel.onSexClick}"
                     android:text="@{viewModel.idInfor.sex}" />
 
                 <!--民族-->
@@ -78,8 +82,11 @@
                 <TextView
                     android:id="@+id/txv_nation"
                     style="@style/lab_value_black"
+                    android:minWidth="40dp"
+                    android:drawableLeft="@mipmap/ic_expand_trangle"
                     android:layout_alignBaseline="@+id/txv_lable_nation"
                     android:text="@{viewModel.idInfor.nation}"
+                    android:onClick="@{viewModel.onNationClick}"
                     android:layout_toEndOf="@+id/txv_lable_nation" />
 
                 <!--出生-->
@@ -93,8 +100,11 @@
 
                 <TextView
                     style="@style/lab_value_black"
+                    android:minWidth="100dp"
+                    android:drawableLeft="@mipmap/ic_expand_trangle"
                     android:layout_alignBaseline="@+id/txv_lable_born"
                     android:layout_toEndOf="@+id/txv_lable_born"
+                    android:onClick="@{viewModel.onBirthdayClick}"
                     android:text="@{viewModel.birthday}" />
 
                 <!--住址-->
@@ -113,10 +123,11 @@
                         style="@style/lab_title_blue"
                         android:text="@string/lable_address" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/txv_address"
-                        style="@style/lab_value_black"
-                        android:text="@{viewModel.idInfor.address}" />
+                        style="@style/edt_value_black"
+                        android:layout_weight="1"
+                        android:text="@={viewModel.idInfor.address}" />
 
                 </LinearLayout>
 
@@ -129,11 +140,12 @@
                     android:layout_marginTop="@dimen/padding_l"
                     android:text="@string/lable_idnum" />
 
-                <TextView
-                    style="@style/lab_value_black"
+                <EditText
+                    style="@style/edt_value_black"
+                    android:minWidth="200dp"
                     android:layout_alignBaseline="@+id/txv_lable_idnum"
                     android:layout_toEndOf="@+id/txv_lable_idnum"
-                    android:text="@{viewModel.idInfor.num}" />
+                    android:text="@={viewModel.idInfor.num}" />
 
             </RelativeLayout>
 
@@ -405,7 +417,7 @@
                 android:id="@+id/btn_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:text="测试"/>
 
         </LinearLayout>

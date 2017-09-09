@@ -47,6 +47,10 @@
         <item name="android:textColor">@color/text_black_gray</item>
     </style>
 
+    <style name="edt_value_black" parent="lab_value_black">
+        <item name="android:background">@color/transparent</item>
+    </style>
+
     <style name="lin_input_row">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
@@ -85,4 +89,7 @@
         <item name="android:textColor">@color/text_black_gray</item>
     </style>
 
+    <style name="Dialog_hololight" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
 </resources>
