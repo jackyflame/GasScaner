@@ -298,9 +298,9 @@ public class GasRecordEntity extends BaseNetEntity {
     public String getBirthday(){
         if(StringUtil.isEmpty(birthday)){
             StringBuffer stringBuffer = new StringBuffer();
-            stringBuffer.append(getYear());
-            stringBuffer.append("/").append(getMonth());
-            stringBuffer.append("/").append(getDay());
+            stringBuffer.append(getYear()).append("年");
+            stringBuffer.append(getMonth()).append("月");
+            stringBuffer.append(getDay()).append("日");
             birthday = stringBuffer.toString();
         }
         return birthday;

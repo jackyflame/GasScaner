@@ -211,6 +211,25 @@
 
                     </RelativeLayout>
 
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:visibility="gone"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/padding_xl"
+                        android:background="@drawable/bg_border_gray_5"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/img_takepic2"
+                            android:onClick="@{viewModel.onImageTakeClick}"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/ic_takephoto"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <!--车辆类型-->
@@ -417,7 +436,7 @@
                 android:id="@+id/btn_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:text="测试"/>
 
         </LinearLayout>
