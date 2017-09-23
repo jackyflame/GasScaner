@@ -65,7 +65,7 @@ public class SplashActivity extends BaseDBActivity<ActivitySplashBinding,SplashV
             startTime = System.currentTimeMillis();
             resultCheck(false);
         }
-        enterNextActivity(true);
+        //enterNextActivity(true);
     }
 
     private void resultCheck(final boolean isLogin) {
