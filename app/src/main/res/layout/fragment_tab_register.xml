@@ -131,6 +131,24 @@
 
                 </LinearLayout>
 
+                <!--<TextView-->
+                    <!--android:id="@+id/txv_lable_address"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_below="@+id/txv_lable_born"-->
+                    <!--android:layout_marginTop="@dimen/padding_l"-->
+                    <!--style="@style/lab_title_blue"-->
+                    <!--android:text="@string/lable_address" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/txv_address"-->
+                    <!--android:layout_alignBaseline="@+id/txv_lable_address"-->
+                    <!--android:layout_toEndOf="@+id/txv_lable_address"-->
+                    <!--android:layout_toStartOf="@+id/img_header"-->
+                    <!--android:layout_marginRight="@dimen/padding_m"-->
+                    <!--style="@style/edt_value_black"-->
+                    <!--android:minWidth="200dp"-->
+                    <!--android:text="@={viewModel.idInfor.address}" />-->
+
                 <!--身份证-->
                 <TextView
                     android:id="@+id/txv_lable_idnum"
@@ -357,13 +375,14 @@
                         android:text="@string/lable_gas_amount" />
 
                     <EditText
+                        android:id="@+id/edt_jyl"
                         style="@style/lin_input_row_wt"
                         android:paddingLeft="@dimen/padding_s"
                         android:paddingRight="@dimen/padding_s"
                         android:textColor="@color/text_black_gray"
                         android:textSize="@dimen/text_m_l"
                         android:hint="录入加油量"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:imeOptions="actionDone"
                         app:onEditorActionListener="@{viewModel}"
                         android:text="@={viewModel.gasRecordEntity.gasMountStr}"/>
@@ -436,7 +455,7 @@
                 android:id="@+id/btn_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:text="测试"/>
 
         </LinearLayout>

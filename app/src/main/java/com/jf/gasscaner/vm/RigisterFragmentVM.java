@@ -217,6 +217,10 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
             Toast.makeText(activity,"加油量超限，请重新输入",Toast.LENGTH_SHORT).show();
             return;
         }
+        if(StringUtil.isEmpty(gasRecordEntity.getImage())){
+            Toast.makeText(activity,"请采集照片",Toast.LENGTH_SHORT).show();
+            return;
+        }
         mPrensent.saveGasRecord(gasRecordEntity, new ReqCallback<String>() {
             @Override
             public void onReqStart() {
@@ -345,6 +349,7 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
         //刷新页面
         notifyPropertyChanged(BR.idInfor);
         notifyPropertyChanged(BR.birthday);
+        notifyPropertyChanged(BR.address);
     }
 
     @Bindable
@@ -566,5 +571,20 @@ public class RigisterFragmentVM extends BaseVM<UserPresent> implements TextView.
                 }
             }
         });
+    }
+
+    @Bindable
+    public String getAddress(){
+        if(idInfor == null){
+            return "";
+        }
+        return idInfor.getAddress();
+    }
+
+    public void setAddress(String address){
+        if(idInfor == null){
+            idInfor = new IDInfor();
+        }
+        idInfor.setAddress(address);
     }
 }
