@@ -25,7 +25,7 @@ public class GasRecordEntity extends BaseNetEntity {
     private String plateNum;
     private String gasType;
     private String gasTypeName;
-    private int gasMount;
+    private float gasMount;
 
     private String plateFirstNum;
     private String plateOtherNum;
@@ -126,7 +126,7 @@ public class GasRecordEntity extends BaseNetEntity {
         this.gasTypeName = gasTypeName;
     }
 
-    public int getGasMount() {
+    public float getGasMount() {
         return gasMount;
     }
 
@@ -137,13 +137,13 @@ public class GasRecordEntity extends BaseNetEntity {
         return String.valueOf(gasMount);
     }
 
-    public void setGasMount(int gasMount) {
+    public void setGasMount(float gasMount) {
         this.gasMount = gasMount;
     }
 
     public void setGasMountStr(String gasMount){
-        if(StringUtil.isInteger(gasMount)){
-            setGasMount(Integer.valueOf(gasMount));
+        if(StringUtil.isFloat(gasMount)){
+            setGasMount(Float.valueOf(gasMount));
         }else{
             setGasMount(0);
         }
